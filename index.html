@@ -9,8 +9,8 @@
 <meta property="og:description" content="Suporte N1/N2, Active Directory, Azure e Intune. Atendimento em português e espanhol.">
 <meta property="og:image" content="https://gabriel-gandra.github.io/assets/og.jpg">
 <meta property="og:type" content="profile">
-<meta name="theme-color" content="#2438E8">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='6' fill='%232438E8'/%3E%3Crect x='10' y='14' width='44' height='36' rx='3' fill='%23FAFAF7'/%3E%3Cpath d='M16 40h2v6h-2zm4 0h1v6h-1zm3 0h3v6h-3zm5 0h1v6h-1zm3 0h2v6h-2zm4 0h1v6h-1zm3 0h3v6h-3zm5 0h1v6h-1z' fill='%230A0A0A'/%3E%3Ctext x='32' y='33' font-family='Arial' font-weight='900' font-size='15' text-anchor='middle' fill='%230A0A0A'%3EGG%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#FFD200">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='6' fill='%23FFD200'/%3E%3Crect x='10' y='14' width='44' height='36' rx='3' fill='%23FAFAF7'/%3E%3Cpath d='M16 40h2v6h-2zm4 0h1v6h-1zm3 0h3v6h-3zm5 0h1v6h-1zm3 0h2v6h-2zm4 0h1v6h-1zm3 0h3v6h-3zm5 0h1v6h-1z' fill='%230A0A0A'/%3E%3Ctext x='32' y='33' font-family='Arial' font-weight='900' font-size='15' text-anchor='middle' fill='%230A0A0A'%3EGG%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -21,7 +21,11 @@
 <a class="skip" href="#main" data-i18n="skip">Pular para o conteúdo</a>
 
 <header class="topbar" id="topbar">
-  <a class="mark" href="#topo" aria-label="Gabriel Gandra, início">GG</a>
+  <div class="progress" aria-hidden="true"><span id="progress"></span></div>
+  <a class="me" href="#topo" aria-label="Gabriel Gandra, início">
+    <img src="assets/avatar.jpg" alt="" width="40" height="40">
+    <span class="me-name">Gabriel Gandra</span>
+  </a>
   <nav class="nav" aria-label="Seções">
     <a href="#historico" data-i18n="nav.history">Histórico</a>
     <a href="#competencias" data-i18n="nav.skills">Competências</a>
@@ -50,8 +54,8 @@
         <h1 class="name" aria-label="Gabriel Gandra"><span>Gabriel</span><span>Gandra</span></h1>
         <p class="lead" data-i18n="hero.lead">Mantenho contas, acessos, computadores e chamados funcionando para quem trabalha, em português e espanhol. Mais de 3 anos no ambiente corporativo da Prosegur.</p>
         <div class="hero-actions">
-          <a class="btn btn-paper" href="#contato" data-i18n="cta.contact">Entrar em contato</a>
-          <a class="btn btn-outline-light" href="assets/Curriculo_Gabriel_Gandra.pdf" download data-i18n="cta.download">Baixar currículo em PDF</a>
+          <a class="btn btn-primary" href="#contato" data-i18n="cta.contact">Entrar em contato</a>
+          <a class="btn btn-secondary" href="assets/Curriculo_Gabriel_Gandra.pdf" download data-i18n="cta.download">Baixar currículo em PDF</a>
         </div>
       </div>
 
@@ -89,9 +93,12 @@
     </div>
   </section>
 
+  <!-- ============ TICKER ============ -->
+  <div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker"></div></div>
+
   <!-- ============ SUMMARY ============ -->
   <section class="summary" aria-label="Resumo">
-    <p data-i18n="summary">Comecei como assistente de suporte em 2023 e hoje sou analista de infraestrutura no mesmo cliente. No caminho, passei a administrar Active Directory, Azure e Intune, a escrever scripts que tiram trabalho repetitivo da fila e a atender as áreas da Prosegur na Espanha no idioma delas.</p>
+    <p id="summaryText" data-i18n="summary">Comecei como assistente de suporte em 2023 e hoje sou analista de infraestrutura no mesmo cliente. No caminho, passei a administrar Active Directory, Azure e Intune, a escrever scripts que tiram trabalho repetitivo da fila e a atender as áreas da Prosegur na Espanha no idioma delas.</p>
   </section>
 
   <!-- ============ HISTORY / PATCH PANEL ============ -->
@@ -150,7 +157,7 @@
         </label>
         <label class="full"><span data-i18n="form.message">Mensagem</span><textarea name="message" rows="4" maxlength="800" required></textarea></label>
         <p class="form-error full" id="formError" role="alert"></p>
-        <button class="btn btn-cobalt" type="submit" data-i18n="form.send">Enviar por e-mail</button>
+        <button class="btn btn-primary" type="submit" data-i18n="form.send">Enviar por e-mail</button>
       </form>
 
       <div class="maker-preview">

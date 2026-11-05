@@ -34,7 +34,7 @@
       'cl.phName': 'Seu nome', 'cl.phCompany': 'Sua empresa', 'cl.phMsg': 'Sua mensagem aparece aqui enquanto você digita.',
       'contact.email': 'E-mail', copied: 'E-mail copiado', copyFail: 'Não foi possível copiar. Selecione o endereço manualmente.',
       footer: 'Gabriel Rodrigues Pinto Gandra, Belo Horizonte. Feito à mão com HTML, CSS e JavaScript.', 'footer.top': 'Voltar ao topo',
-      present: 'atual', allocated: 'alocado na Prosegur', ports: 'Cargos'
+      stamp: 'Enviado', present: 'atual', allocated: 'alocado na Prosegur', ports: 'Cargos'
     },
     es: {
       skip: 'Saltar al contenido', theme: 'Cambiar tema claro u oscuro',
@@ -61,7 +61,7 @@
       'cl.phName': 'Tu nombre', 'cl.phCompany': 'Tu empresa', 'cl.phMsg': 'Tu mensaje aparece aquí mientras escribes.',
       'contact.email': 'Correo', copied: 'Correo copiado', copyFail: 'No se pudo copiar. Selecciona la dirección manualmente.',
       footer: 'Gabriel Rodrigues Pinto Gandra, Belo Horizonte. Hecho a mano con HTML, CSS y JavaScript.', 'footer.top': 'Volver arriba',
-      present: 'actual', allocated: 'asignado a Prosegur', ports: 'Puestos'
+      stamp: 'Enviado', present: 'actual', allocated: 'asignado a Prosegur', ports: 'Puestos'
     },
     en: {
       skip: 'Skip to content', theme: 'Switch light or dark theme',
@@ -88,7 +88,7 @@
       'cl.phName': 'Your name', 'cl.phCompany': 'Your company', 'cl.phMsg': 'Your message shows up here as you type.',
       'contact.email': 'Email', copied: 'Email copied', copyFail: 'Couldn’t copy. Select the address manually.',
       footer: 'Gabriel Rodrigues Pinto Gandra, Belo Horizonte. Handmade with HTML, CSS and JavaScript.', 'footer.top': 'Back to top',
-      present: 'present', allocated: 'assigned to Prosegur', ports: 'Roles'
+      stamp: 'Sent', present: 'present', allocated: 'assigned to Prosegur', ports: 'Roles'
     }
   };
 
@@ -206,7 +206,8 @@
   /* =================================================================== */
   /* State + helpers                                                      */
   /* =================================================================== */
-  let lang = 'pt', activeJob = 0, activeSkill = null;
+  let lang = 'pt', activeJob = 0, activeSkill = null, panelSeen = false;
+  const seen = { skills: false, edu: false };
   const tx = (v) => (typeof v === 'string' ? v : v[lang]);
   const t = (k) => UI[lang][k];
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -243,10 +244,10 @@
     const d = $('#jobDetail');
     d.style.setProperty('--c', j.color);
     d.setAttribute('aria-labelledby', 'port-' + activeJob);
-    d.innerHTML = `<div class="${animate && !reduceMotion ? 'swap' : ''}">
+    d.innerHTML = `<div class="${animate ? 'swap' : ''}">
       <div class="job-meta"><h3>${esc(tx(j.title))}</h3><span class="job-dates">${j.from} – ${j.to || t('present')}</span></div>
       <p class="job-company"><b>${esc(j.company)}</b>, ${t('allocated')}</p>
-      <ul>${j.items.map((it) => `<li data-tags="${it.tags.join(' ')}">${esc(it[lang])}</li>`).join('')}</ul></div>`;
+      <ul>${j.items.map((it, i) => `<li style="--i:${i}" data-tags="${it.tags.join(' ')}">${esc(it[lang])}</li>`).join('')}</ul></div>`;
     markItems();
     drawCable(animate);
   }
@@ -271,10 +272,11 @@
     path.style.stroke = JOBS[activeJob].color;
     const len = path.getTotalLength();
     path.style.strokeDasharray = len;
-    if (animate && !reduceMotion) {
+    if (!panelSeen) { path.style.transition = 'none'; path.style.strokeDashoffset = len; return; }
+    if (animate) {
       path.style.transition = 'none'; path.style.strokeDashoffset = len;
       path.getBoundingClientRect();
-      path.style.transition = 'stroke-dashoffset .6s cubic-bezier(.4,0,.2,1) .12s';
+      path.style.transition = 'stroke-dashoffset .8s cubic-bezier(.4,0,.2,1) .15s';
     } else path.style.transition = 'none';
     path.style.strokeDashoffset = 0;
   }
@@ -292,10 +294,10 @@
   /* Skills filter                                                        */
   /* =================================================================== */
   function renderSkills() {
-    $('#skillGroups').innerHTML = SKILLS.map((g) => `
-      <div class="skill-group"><h3>${esc(tx(g.group))}</h3><div class="stickers">${g.items.map(([id, label]) => used.has(id)
-        ? `<button type="button" class="sticker" data-skill="${id}" aria-pressed="${activeSkill === id}">${esc(tx(label))}</button>`
-        : `<span class="sticker">${esc(tx(label))}</span>`).join('')}</div></div>`).join('');
+    $('#skillGroups').innerHTML = SKILLS.map((g, gi) => `
+      <div class="skill-group${seen.skills ? ' in' : ''}" style="--g:${gi}"><h3>${esc(tx(g.group))}</h3><div class="stickers">${g.items.map(([id, label], i) => used.has(id)
+        ? `<button type="button" class="sticker" style="--i:${i}" data-skill="${id}" aria-pressed="${activeSkill === id}">${esc(tx(label))}</button>`
+        : `<span class="sticker" style="--i:${i}">${esc(tx(label))}</span>`).join('')}</div></div>`).join('');
   }
   function markPorts() { $$('.port').forEach((p, i) => p.classList.toggle('match', !!activeSkill && JOBS[i].items.some((it) => it.tags.includes(activeSkill)))); }
   function markItems() {
@@ -329,9 +331,9 @@
   /* Education, languages                                                 */
   /* =================================================================== */
   function renderEdu() {
-    $('#eduList').innerHTML = EDU.map((e) => `<li><b>${esc(tx(e.t))}</b><span class="yr">${esc(tx(e.yr))}</span><span class="where">${esc(tx(e.s))}</span></li>`).join('');
-    $('#langList').innerHTML = LANGS.map((l) => `<li><div class="top"><b>${tx(l.n)}</b><span>${esc(tx(l.l))}</span></div>
-      <div class="meter" role="img" aria-label="${tx(l.n)}: ${l.v}/5">${[1, 2, 3, 4, 5].map((i) => `<i class="${i <= l.v ? 'on' : ''}"></i>`).join('')}</div></li>`).join('');
+    $('#eduList').innerHTML = EDU.map((e, i) => `<li class="rv${seen.edu ? ' in' : ''}" style="--d:${i * 0.1}s"><b>${esc(tx(e.t))}</b><span class="yr">${esc(tx(e.yr))}</span><span class="where">${esc(tx(e.s))}</span></li>`).join('');
+    $('#langList').innerHTML = LANGS.map((l, r) => `<li style="--r:${r}"><div class="top"><b>${tx(l.n)}</b><span>${esc(tx(l.l))}</span></div>
+      <div class="meter" role="img" aria-label="${tx(l.n)}: ${l.v}/5">${[1, 2, 3, 4, 5].map((i) => `<i class="${i <= l.v ? 'on' : ''}" style="--i:${i}"></i>`).join('')}</div></li>`).join('');
   }
 
   /* =================================================================== */
@@ -347,7 +349,11 @@
   }
   const d = new Date();
   $('#clDate').textContent = `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
-  form.addEventListener('input', (e) => { if (e.target.getAttribute('aria-invalid') === 'true' && e.target.value.trim()) e.target.setAttribute('aria-invalid', 'false'); updateContactLabel(); });
+  form.addEventListener('input', (e) => {
+    if (e.target.getAttribute('aria-invalid') === 'true' && e.target.value.trim()) e.target.setAttribute('aria-invalid', 'false');
+    updateContactLabel();
+    const cl = $('#contactLabel'); cl.classList.remove('bump'); void cl.offsetWidth; cl.classList.add('bump');
+  });
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const name = form.name.value.trim(), msg = form.message.value.trim(), company = form.company.value.trim();
@@ -356,9 +362,43 @@
     $('#formError').textContent = '';
     const subject = form.subject.options[form.subject.selectedIndex].text + (company ? ' | ' + company : '');
     const body = `${msg}\n\n${name}${company ? '\n' + company : ''}`;
-    location.href = `mailto:contatogabrielgandra@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    stampLabel();
+    setTimeout(() => { location.href = `mailto:contatogabrielgandra@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`; }, 650);
     toast(t('form.opened'));
   });
+
+  /* =================================================================== */
+  /* Ticker tape + summary that lights up word by word                    */
+  /* =================================================================== */
+  function renderTicker() {
+    const words = SKILLS.flatMap((g) => g.items.map(([, l]) => tx(l)));
+    const run = words.map((w) => `<span>${esc(w)}</span>`).join('');
+    $('#ticker').innerHTML = run + run;
+  }
+  const KEYS = new Set(['active', 'directory', 'azure', 'intune', 'scripts', 'espanha', 'españa', 'spain', 'analista', 'analyst']);
+  let words = [];
+  function splitSummary() {
+    const p = $('#summaryText');
+    p.innerHTML = t('summary').split(' ').map((w) => {
+      const k = KEYS.has(w.toLowerCase().replace(/[.,;:]/g, '')) ? ' key' : '';
+      return `<span class="w${k}">${esc(w)}</span>`;
+    }).join(' ');
+    words = $$('.w', p);
+    litSummary();
+  }
+  function litSummary() {
+    const p = $('#summaryText'); if (!p) return;
+    const r = p.getBoundingClientRect(), vh = innerHeight;
+    const prog = Math.min(1, Math.max(0, (vh * .85 - r.top) / (r.height + vh * .35)));
+    const n = Math.round(prog * words.length);
+    words.forEach((w, i) => w.classList.toggle('lit', i < n));
+  }
+  function stampLabel() {
+    const cl = $('#contactLabel');
+    cl.dataset.stamp = t('stamp');
+    cl.classList.remove('sent'); void cl.offsetWidth; cl.classList.add('sent');
+    setTimeout(() => cl.classList.remove('sent'), 3500);
+  }
 
   /* =================================================================== */
   /* Language                                                             */
@@ -370,6 +410,7 @@
     $$('[data-i18n-label]').forEach((el) => el.setAttribute('aria-label', UI[lang][el.dataset.i18nLabel]));
     $$('.lang button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
     renderPorts(); renderJob(false); renderSkills(); renderEdu(); applyFilter(); updateContactLabel();
+    renderTicker(); splitSummary();
     try { localStorage.setItem('lang', lang); } catch (e) {}
   }
   $$('.lang button').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.lang)));
@@ -377,14 +418,25 @@
   /* =================================================================== */
   /* Hero: print sequence + draggable label                               */
   /* =================================================================== */
-  const feed = $('#feed'), label = $('#assetLabel'), led = $('#printerLed');
+  // Plays even with "reduce motion" on: it's a short, one-off sequence and the centrepiece of the page.
+  const feed = $('#feed'), label = $('#assetLabel'), led = $('#printerLed'), pwrap = $('.printer-wrap'), reprint = $('#reprint');
   function print() {
-    if (reduceMotion) { feed.classList.add('done'); return; }
-    feed.classList.remove('done', 'printing'); label.style.transform = '';
+    feed.classList.remove('done', 'printing'); feed.style.removeProperty('--rx'); feed.style.removeProperty('--ry'); label.style.transform = '';
     void feed.offsetWidth;
-    led.classList.add('busy'); feed.classList.add('printing');
+    led.classList.add('busy'); pwrap.classList.add('printing-now'); feed.classList.add('printing'); reprint.disabled = true;
   }
-  label.addEventListener('animationend', () => { feed.classList.remove('printing'); feed.classList.add('done'); led.classList.remove('busy'); });
+  label.addEventListener('animationend', (e) => {
+    if (e.animationName !== 'feed') return;
+    feed.classList.remove('printing'); feed.classList.add('done'); led.classList.remove('busy'); pwrap.classList.remove('printing-now'); reprint.disabled = false;
+  });
+  // 3D tilt following the pointer once printed
+  pwrap.addEventListener('pointermove', (e) => {
+    if (reduceMotion || drag || !feed.classList.contains('done') || e.pointerType !== 'mouse') return;
+    const r = feed.getBoundingClientRect();
+    feed.style.setProperty('--ry', `${((e.clientX - r.left) / r.width - .5) * 14}deg`);
+    feed.style.setProperty('--rx', `${-((e.clientY - r.top) / r.height - .5) * 12}deg`);
+  });
+  pwrap.addEventListener('pointerleave', () => { feed.style.removeProperty('--rx'); feed.style.removeProperty('--ry'); });
   $('#reprint').addEventListener('click', print);
 
   let drag = null;
@@ -409,10 +461,35 @@
     try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
   });
   const bar = $('#topbar'), hero = $('.hero');
+  const progress = $('#progress');
   const onScroll = () => {
     bar.classList.toggle('scrolled', scrollY > 8);
     bar.classList.toggle('solid', scrollY > hero.offsetHeight - bar.offsetHeight);
+    const max = document.documentElement.scrollHeight - innerHeight;
+    progress.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+    litSummary();
   };
+
+  // Reveal on scroll: section titles print in, content rises, panel boots
+  $$('.section-head h2, .h-small').forEach((el) => el.classList.add('wipe'));
+  $$('.section-head p, #panelWrap, .maker').forEach((el) => el.classList.add('rv'));
+  const revealer = new IntersectionObserver((entries) => entries.forEach((en) => {
+    if (!en.isIntersecting) return;
+    const el = en.target; revealer.unobserve(el);
+    // titles are fully clipped before they print, so their container is what gets observed
+    if (el.classList.contains('wipe-host')) { $$(':scope > .wipe', el).forEach((w) => w.classList.add('in')); return; }
+    if (el.id === 'skillGroups') { seen.skills = true; $$('.skill-group', el).forEach((g) => g.classList.add('in')); return; }
+    if (el.id === 'eduList') { seen.edu = true; $$('li', el).forEach((li) => li.classList.add('in')); return; }
+    if (el.id === 'langList') { el.classList.add('in'); return; }
+    el.classList.add('in');
+    if (el.id === 'panelWrap') {
+      el.classList.add('booting');
+      $$('.port', el).forEach((p, i) => p.style.setProperty('--bd', `${i * 0.15}s`));
+      setTimeout(() => { el.classList.remove('booting'); panelSeen = true; drawCable(true); }, 900);
+    }
+  }), { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
+  $$('.wipe').forEach((w) => w.parentElement.classList.add('wipe-host'));
+  $$('.wipe-host, .rv, #skillGroups, #eduList, #langList').forEach((el) => revealer.observe(el));
   addEventListener('scroll', onScroll, { passive: true });
   const links = $$('.nav a');
   const io = new IntersectionObserver((es) => es.forEach((en) => { if (en.isIntersecting) links.forEach((a) => a.classList.toggle('active', a.hash === '#' + en.target.id)); }), { rootMargin: '-45% 0px -50% 0px' });
@@ -432,6 +509,13 @@
   const nav = (navigator.language || 'pt').slice(0, 2);
   setLang(UI[saved] ? saved : UI[nav] ? nav : 'pt');
   onScroll();
-  const start = () => requestAnimationFrame(() => { root.classList.add('ready'); setTimeout(print, reduceMotion ? 0 : 450); drawCable(false); });
-  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(start);
+  // Start once fonts are in, but never wait more than 1.2s for them.
+  let started = false;
+  const start = () => {
+    if (started) return; started = true;
+    root.classList.add('ready'); drawCable(false);
+    setTimeout(print, 450);
+  };
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(start, start);
+  setTimeout(start, 1200);
 })();

@@ -1,6 +1,6 @@
 # DESIGN.md · Gabriel Gandra
 
-Direction: **asset label and patch panel.** The site borrows from Gabriel's own work: Zebra thermal labels, asset lifecycle and network cabling. Labels are physical objects (always paper white with black ink, in both themes). Everything around them stays quiet so the three motion moments land: the label printing, the cable plugging in, and the live contact label.
+Direction: **asset label and patch panel, in signal yellow.** The site borrows from Gabriel's own work: Zebra thermal labels, asset lifecycle and network cabling. Yellow is the colour of patch cables and rack signage; graphite is the rack. Labels are physical objects (always paper white with black ink, in both themes).
 
 Not based on reference sites (UXKIN was not connected); grounded in the subject's vernacular.
 
@@ -8,47 +8,39 @@ Not based on reference sites (UXKIN was not connected); grounded in the subject'
 
 | Token | Light | Dark | Role |
 |---|---|---|---|
-| `--bg` | `#F3F4F6` | `#0C1020` | Page background |
-| `--surface` | `#FFFFFF` | `#141A2E` | Panels, form |
-| `--ink` | `#0A0F1F` | `#E8ECF6` | Text |
-| `--muted` | `#4F5872` | `#A0A9C2` | Secondary text |
-| `--line` | `#D6DAE3` | `#263052` | Borders, rules |
-| `--cobalt` | `#2438E8` | `#3448F0` | Hero field, primary actions, links |
-| `--on-cobalt` | `#FFFFFF` | `#FFFFFF` | Text on cobalt |
-| `--paper` | `#FAFAF7` | `#FAFAF7` | Label stock (never changes) |
-| `--print` | `#0A0A0A` | `#0A0A0A` | Label ink (never changes) |
-| `--rack` | `#171A22` | `#070912` | Printer body, patch panel |
-| `--cable-blue / yellow / green / red` | `#3D7BFF / #F5C518 / #2EB67D / #E5484D` | same | Patch cables and port LEDs only |
-
-Cable colors are never used for text or buttons.
+| `--bg` | `#F2F2EF` | `#111114` | Page background |
+| `--surface` | `#FFFFFF` | `#1A1A1F` | Panels, form |
+| `--ink` | `#17171B` | `#EDEDE8` | Text |
+| `--muted` | `#5A5A63` | `#A4A4AC` | Secondary text |
+| `--line` | `#DADAD4` | `#2C2C34` | Borders, rules |
+| `--brand` | `#FFD200` | `#FFD200` | Signal yellow: hero (light), name (dark), ticker, highlights |
+| `--hero-bg` / `--hero-name` | yellow / ink | graphite `#18181C` / yellow | Hero field and name |
+| `--action` / `--on-action` | ink / yellow | yellow / ink | Primary buttons, links |
+| `--paper` / `--print` | `#FAFAF7` / `#0A0A0A` | same | Label stock and ink (never change) |
+| `--rack` | `#1E1E22` | `#0A0A0C` | Printer body, patch panel |
+| `--cable-*` | blue `#3D7BFF`, yellow, green `#2EB67D`, red `#E5484D` | same | Patch cables, LEDs, error |
 
 ## Typography
 
-- **Big Shoulders Display** (700–900): the name, section titles, label headers. Uppercase only for the hero name and on labels, where real labels use it.
+- **Big Shoulders Display** (700–900): the name, section titles, label headers, ticker. Uppercase.
 - **Schibsted Grotesk** (400–700): everything else.
 
-Scale (px / line-height): 13/1.4 · 15/1.5 · 17/1.6 (body) · 21/1.45 · 32/1.05 · 56/0.95 · clamp(88–200)/0.82 (name).
+Scale (px / line-height): 13/1.4 · 15/1.5 · 17/1.6 (body) · 21/1.45 · 30 ticker · clamp(26–44)/1.2 summary · clamp(56–108)/0.86 titles · clamp(92–212)/0.8 name.
 
 ## Spacing and shape
 
 - 8-based scale: 4, 8, 12, 16, 24, 32, 48, 64, 96, 128. Sections: 128 desktop, 88 mobile. Content width 1180.
-- Radius: 3px on labels and stickers (die-cut paper), 10px on panels and inputs, 999px only on the language switch. Buttons are square-cornered (4px).
-- Depth: one shadow for physical objects (labels): `0 1px 0 rgba(0,0,0,.08), 0 22px 40px -18px rgba(5,10,40,.45)`. Panels are flat with a border.
-
-## Components
-
-- **Button** primary: cobalt fill, white text. Secondary: 1.5px ink outline. On the cobalt hero: paper fill with ink text, and white outline. Focus: 3px outline in `--cable-yellow` on the hero, cobalt elsewhere.
-- **Label**: paper, print ink, 3px radius, perforation edge at the top, barcode at the bottom.
-- **Port**: RJ45 opening drawn with clip-path, link LED (green) and activity LED (amber).
-- **Skill sticker**: small paper label; pressed = cobalt fill.
-- **Inputs**: surface fill, 1.5px line border, cobalt border on focus.
-
-## Imagery
-
-- Gabriel's photo appears dithered (Atkinson, 1-bit) as it would print on a thermal printer.
-- Barcodes are real CODE128 (JsBarcode, vendored).
-- No icon set beyond two inline SVGs (theme toggle).
+- Radius: 3px labels and stickers, 4px buttons, 6px inputs, 10px panels, 999px only the language switch and avatar.
+- Depth: one soft shadow for physical labels; hard 4px offset shadows for interactive hover (buttons, stickers, focused inputs).
 
 ## Motion
 
-One page-load sequence (label printing in steps, like a thermal feed). Everything else answers the visitor: dragging the label, plugging a port, typing in the contact form. `prefers-reduced-motion` shows final states with no movement.
+Plays even with "reduce motion" on (short, one-off sequences); ambient motion (ticker speed, tilt, rumble) is reduced.
+
+1. Load: the name is printed left to right by a moving print head; the printer rumbles and feeds the label in 22 steps; the label settles.
+2. Ticker tape of skills under the hero (pauses on hover).
+3. Summary words light up as you scroll; key terms get a yellow marker.
+4. Section titles print in when they enter the viewport; content rises in.
+5. Patch panel boots (LEDs blink), then the cable draws to the selected role.
+6. Skill stickers pop on; meters fill in steps; the contact label bumps as you type and gets an "Enviado" stamp on send.
+7. Label tilts in 3D following the mouse and can be dragged.
