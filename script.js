@@ -11,7 +11,8 @@
   const UI = {
     pt: {
       skip: 'Pular para o conteúdo', theme: 'Alternar tema claro ou escuro',
-      'nav.history': 'Histórico', 'nav.skills': 'Competências', 'nav.education': 'Formação', 'nav.contact': 'Contato',
+      'nav.history': 'Histórico', 'nav.projects': 'Projetos', 'nav.skills': 'Competências',
+      'projects.title': 'Projetos', 'projects.intro': 'Fora do suporte, eu crio sites, produtos e jogos. Alguns sites foram vendidos para clientes; outros são projetos meus.', 'p.open': 'Abrir site', 'p.play': 'Jogar no Roblox', 'nav.education': 'Formação', 'nav.contact': 'Contato',
       'hero.kicker': 'Analista de Infraestrutura de TI em Belo Horizonte',
       'hero.lead': 'Mantenho contas, acessos, computadores e chamados funcionando para quem trabalha, em português e espanhol. Mais de 3 anos no ambiente corporativo da Prosegur.',
       'cta.contact': 'Entrar em contato', 'cta.download': 'Baixar currículo em PDF',
@@ -38,7 +39,8 @@
     },
     es: {
       skip: 'Saltar al contenido', theme: 'Cambiar tema claro u oscuro',
-      'nav.history': 'Historial', 'nav.skills': 'Competencias', 'nav.education': 'Formación', 'nav.contact': 'Contacto',
+      'nav.history': 'Historial', 'nav.projects': 'Proyectos', 'nav.skills': 'Competencias',
+      'projects.title': 'Proyectos', 'projects.intro': 'Fuera del soporte, creo sitios web, productos y juegos. Algunos sitios se vendieron a clientes; otros son proyectos propios.', 'p.open': 'Abrir sitio', 'p.play': 'Jugar en Roblox', 'nav.education': 'Formación', 'nav.contact': 'Contacto',
       'hero.kicker': 'Analista de Infraestructura TI en Belo Horizonte, Brasil',
       'hero.lead': 'Mantengo cuentas, accesos, equipos y tickets funcionando para quienes trabajan, en portugués y español. Más de 3 años en el entorno corporativo de Prosegur.',
       'cta.contact': 'Contactar', 'cta.download': 'Descargar CV en PDF',
@@ -65,7 +67,8 @@
     },
     en: {
       skip: 'Skip to content', theme: 'Switch light or dark theme',
-      'nav.history': 'History', 'nav.skills': 'Skills', 'nav.education': 'Education', 'nav.contact': 'Contact',
+      'nav.history': 'History', 'nav.projects': 'Projects', 'nav.skills': 'Skills',
+      'projects.title': 'Projects', 'projects.intro': 'Outside support work, I build websites, products and games. Some sites were sold to clients; others are my own projects.', 'p.open': 'Open site', 'p.play': 'Play on Roblox', 'nav.education': 'Education', 'nav.contact': 'Contact',
       'hero.kicker': 'IT Infrastructure Analyst in Belo Horizonte, Brazil',
       'hero.lead': 'I keep accounts, access, computers and tickets working for the people who rely on them, in Portuguese and Spanish. Over 3 years in Prosegur’s corporate environment.',
       'cta.contact': 'Get in touch', 'cta.download': 'Download résumé (PDF)',
@@ -105,8 +108,9 @@
       ['lifecycle', { pt: 'Ciclo de vida de ativos', es: 'Ciclo de vida de activos', en: 'Asset lifecycle' }],
       ['printers', { pt: 'Impressoras Zebra e Lexmark', es: 'Impresoras Zebra y Lexmark', en: 'Zebra and Lexmark printers' }], ['ocs', 'OCS Inventory'] ] },
     { group: { pt: 'Programação e dados', es: 'Programación y datos', en: 'Programming and data' }, items: [
-      ['scripts', { pt: 'Scripts de automação', es: 'Scripts de automatización', en: 'Automation scripts' }],
-      ['js', 'JavaScript'], ['c', { pt: 'C e C++', es: 'C y C++', en: 'C and C++' }], ['sql', 'SQL (MySQL)'],
+      ['scripts', { pt: 'Scripts .bat e automação', es: 'Scripts .bat y automatización', en: '.bat and automation scripts' }],
+      ['web', { pt: 'Sites e aplicativos web', es: 'Sitios y aplicaciones web', en: 'Websites and web apps' }],
+      ['js', 'JavaScript'], ['c', { pt: 'C e C++', es: 'C y C++', en: 'C and C++' }], ['sql', 'SQL (MySQL)'], ['roblox', 'Roblox Studio'],
       ['oracle', { pt: 'Oracle (consultas)', es: 'Oracle (consultas)', en: 'Oracle (queries)' }] ] },
     { group: { pt: 'Documentação', es: 'Documentación', en: 'Documentation' }, items: [
       ['docs', { pt: 'Manuais operacionais', es: 'Manuales operativos', en: 'Operating manuals' }],
@@ -123,10 +127,10 @@
           pt: 'Administro contas, grupos, dispositivos e políticas com Active Directory, Azure e Microsoft Intune, incluindo licenças, pastas compartilhadas e acesso à rede Wi-Fi corporativa.',
           es: 'Administro cuentas, grupos, dispositivos y políticas con Active Directory, Azure y Microsoft Intune, incluidas licencias, carpetas compartidas y acceso a la red Wi-Fi corporativa.',
           en: 'Manage accounts, groups, devices and policies with Active Directory, Azure and Microsoft Intune, including licences, shared folders and corporate Wi-Fi access.' },
-        { tags: ['scripts'],
-          pt: 'Desenvolvo scripts e projetos de automação que reduzem tarefas manuais e o volume de chamados recorrentes.',
-          es: 'Desarrollo scripts y proyectos de automatización que reducen tareas manuales y el volumen de tickets recurrentes.',
-          en: 'Build automation scripts and projects that cut manual work and the volume of recurring tickets.' },
+        { tags: ['scripts', 'web'],
+          pt: 'Desenvolvo sites, aplicativos e scripts .bat que melhoram fluxos e processos da equipe, reduzem tarefas manuais e diminuem o tempo de atendimento.',
+          es: 'Desarrollo sitios web, aplicaciones y scripts .bat que mejoran flujos y procesos del equipo, reducen tareas manuales y acortan el tiempo de atención.',
+          en: 'Build websites, apps and .bat scripts that improve team workflows, cut manual work and shorten response times.' },
         { tags: ['spanish', 'n1n2'],
           pt: 'Presto suporte técnico em espanhol para áreas da Prosegur na Espanha.',
           es: 'Brindo soporte técnico en español a áreas de Prosegur en España.',
@@ -182,6 +186,45 @@
       ] }
   ];
 
+  const PROJECTS = [
+    { title: { pt: 'Sites', es: 'Sitios web', en: 'Websites' },
+      note: { pt: 'Vendidos para clientes ou mantidos como projetos próprios.', es: 'Vendidos a clientes o mantenidos como proyectos propios.', en: 'Sold to clients or kept as my own projects.' },
+      items: [
+        { name: 'Aldrin Gandra', url: 'https://www.aldringandra.com.br/', code: 'ALDRINGANDRA.COM.BR',
+          tag: { pt: 'Site oficial', es: 'Sitio oficial', en: 'Official site' },
+          d: { pt: 'Site oficial de cantor e compositor de Belo Horizonte, com músicas, clipes e contratação de shows.', es: 'Sitio oficial de un cantante y compositor de Belo Horizonte, con música, videoclips y contratación de shows.', en: 'Official site for a Belo Horizonte singer-songwriter, with music, videos and show bookings.' } },
+        { name: 'GandraCast', url: 'http://gandracast.com.br/', code: 'GANDRACAST.COM.BR',
+          tag: { pt: 'Podcast', es: 'Podcast', en: 'Podcast' },
+          d: { pt: 'Site do podcast, com os episódios do YouTube, os cortes para redes sociais e uma página de parcerias para marcas.', es: 'Sitio del podcast, con los episodios de YouTube, los cortes para redes sociales y una página de alianzas para marcas.', en: 'Podcast site with the YouTube episodes, social media clips and a partnerships page for brands.' } },
+        { name: 'Go After', url: 'http://goafter.com.br/', code: 'GOAFTER.COM.BR',
+          tag: { pt: 'Educação', es: 'Educación', en: 'Education' },
+          d: { pt: 'Plataforma completa de aprendizagem on-line para uma escola.', es: 'Plataforma completa de aprendizaje en línea para una escuela.', en: 'A complete online learning platform for a school.' } }
+      ] },
+    { title: { pt: 'Produtos próprios', es: 'Productos propios', en: 'My own products' },
+      note: { pt: 'Desenvolvidos para empreender.', es: 'Desarrollados para emprender.', en: 'Built as business ventures.' },
+      items: [
+        { name: 'BarbersApp', url: 'https://www.barbersapp.com.br/', code: 'BARBERSAPP.COM.BR',
+          tag: { pt: 'Sistema', es: 'Sistema', en: 'SaaS' },
+          d: { pt: 'Sistema completo para barbearias: agendamento, programa de fidelidade, cupons, mapa interativo e landing page própria.', es: 'Sistema completo para barberías: reservas, programa de fidelidad, cupones, mapa interactivo y landing page propia.', en: 'All-in-one system for barbershops: booking, loyalty programme, coupons, interactive map and a landing page of their own.' } },
+        { name: 'MesaRápida', url: 'https://www.mesarapida.com.br/', code: 'MESARAPIDA.COM.BR',
+          tag: { pt: 'Reservas', es: 'Reservas', en: 'Bookings' },
+          d: { pt: 'Reserva de mesas em segundos para restaurantes, com organização das mesas e menos faltas (no-show).', es: 'Reserva de mesas en segundos para restaurantes, con organización de mesas y menos ausencias (no-show).', en: 'Table booking in seconds for restaurants, with table management and fewer no-shows.' } }
+      ] },
+    { title: { pt: 'Jogos no Roblox', es: 'Juegos en Roblox', en: 'Roblox games' },
+      note: { pt: 'Por diversão; comecei há pouco tempo.', es: 'Por diversión; empecé hace poco.', en: 'Just for fun; I started recently.' },
+      items: [
+        { name: 'Caos Burger', game: true, url: 'https://www.roblox.com/pt/games/82373635262098/Caos-Burger', code: 'RBX-82373635262098',
+          tag: { pt: 'Terror', es: 'Terror', en: 'Horror' },
+          d: { pt: 'De dia, compras num hipermercado coberto de neblina; à noite, o drive-thru da lanchonete. Algo caça você nos dois turnos.', es: 'De día, compras en un hipermercado cubierto de niebla; de noche, el autoservicio de la hamburguesería. Algo te caza en ambos turnos.', en: 'By day, shop in a fog-filled hypermarket; by night, run the burger drive-thru. Something hunts you on both shifts.' } },
+        { name: 'Hungry Lake', game: true, url: 'https://www.roblox.com/pt/games/73925819065394/Hungry-Lake-Horror-Fishing', code: 'RBX-73925819065394',
+          tag: { pt: 'Pesca e terror', es: 'Pesca y terror', en: 'Horror fishing' },
+          d: { pt: 'De 1 a 6 jogadores pescam, negociam com o mercador e precisam pagar ao lago o que é dele antes do anoitecer.', es: 'De 1 a 6 jugadores pescan, comercian con el mercader y deben pagarle al lago lo suyo antes del anochecer.', en: 'One to six players fish, trade with the merchant and must pay the lake its share before nightfall.' } },
+        { name: 'Echoes of the Deep', game: true, url: 'https://www.roblox.com/pt/games/73423319870769/Echoes-of-the-Deep-Abyss-Chronicles', code: 'RBX-73423319870769',
+          tag: { pt: 'Sobrevivência', es: 'Supervivencia', en: 'Survival' },
+          d: { pt: 'Um esquadrão de 1 a 4 mercenários desce em minas abandonadas atrás de cristais e do que mais vive lá embaixo.', es: 'Un escuadrón de 1 a 4 mercenarios baja a minas abandonadas en busca de cristales y de lo que vive allí abajo.', en: 'A squad of one to four mercenaries descends into abandoned mines after crystals, and whatever else lives down there.' } }
+      ] }
+  ];
+
   const EDU = [
     { yr: { pt: '2025 – atual', es: '2025 – actual', en: '2025 – present' },
       t: { pt: 'Bacharelado em Ciência da Computação', es: 'Grado en Ciencias de la Computación', en: 'BSc in Computer Science' },
@@ -207,7 +250,7 @@
   /* State + helpers                                                      */
   /* =================================================================== */
   let lang = 'pt', activeJob = 0, activeSkill = null, panelSeen = false;
-  const seen = { skills: false, edu: false };
+  const seen = { skills: false, edu: false, projects: false };
   const tx = (v) => (typeof v === 'string' ? v : v[lang]);
   const t = (k) => UI[lang][k];
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -330,6 +373,30 @@
   /* =================================================================== */
   /* Education, languages                                                 */
   /* =================================================================== */
+  const ROTS = [-1.2, .8, -.5, 1.1, -.9, .6];
+  const ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>';
+  function renderProjects() {
+    let n = 0;
+    $('#projectGroups').innerHTML = PROJECTS.map((g) => `
+      <div class="project-group${seen.projects ? ' in' : ''}">
+        <header><h3>${esc(tx(g.title))}</h3><p>${esc(tx(g.note))}</p></header>
+        <div class="project-grid">${g.items.map((p, i) => `
+          <a class="project" href="${p.url}" target="_blank" rel="noopener" style="--i:${i};--rot:${ROTS[n++ % ROTS.length]}deg" aria-label="${esc(p.name)}: ${esc(t(p.game ? 'p.play' : 'p.open'))}">
+            <div class="label-head"><span>${esc(tx(p.tag))}</span>${ARROW}</div>
+            <h4>${esc(p.name)}</h4>
+            <p>${esc(tx(p.d))}</p>
+            <div class="p-foot"><svg class="barcode" data-code="${p.code}"></svg><span>${p.code}<b>${esc(t(p.game ? 'p.play' : 'p.open'))}</b></span></div>
+          </a>`).join('')}</div>
+      </div>`).join('');
+    $$('#projectGroups svg.barcode').forEach((svg) => {
+      if (typeof JsBarcode !== 'function') return;
+      JsBarcode(svg, svg.dataset.code, { format: 'CODE128', displayValue: false, margin: 0, height: 30, width: 2, background: 'transparent', lineColor: '#0A0A0A' });
+      const w = svg.getAttribute('width'), h = svg.getAttribute('height');
+      svg.setAttribute('viewBox', `0 0 ${parseFloat(w)} ${parseFloat(h)}`); svg.setAttribute('preserveAspectRatio', 'none');
+      svg.removeAttribute('width'); svg.removeAttribute('height'); svg.removeAttribute('style');
+    });
+  }
+
   function renderEdu() {
     $('#eduList').innerHTML = EDU.map((e, i) => `<li class="rv${seen.edu ? ' in' : ''}" style="--d:${i * 0.1}s"><b>${esc(tx(e.t))}</b><span class="yr">${esc(tx(e.yr))}</span><span class="where">${esc(tx(e.s))}</span></li>`).join('');
     $('#langList').innerHTML = LANGS.map((l, r) => `<li style="--r:${r}"><div class="top"><b>${tx(l.n)}</b><span>${esc(tx(l.l))}</span></div>
@@ -410,7 +477,7 @@
     $$('[data-i18n-label]').forEach((el) => el.setAttribute('aria-label', UI[lang][el.dataset.i18nLabel]));
     $$('.lang button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
     renderPorts(); renderJob(false); renderSkills(); renderEdu(); applyFilter(); updateContactLabel();
-    renderTicker(); splitSummary();
+    renderTicker(); splitSummary(); renderProjects();
     try { localStorage.setItem('lang', lang); } catch (e) {}
   }
   $$('.lang button').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.lang)));
@@ -479,6 +546,7 @@
     // titles are fully clipped before they print, so their container is what gets observed
     if (el.classList.contains('wipe-host')) { $$(':scope > .wipe', el).forEach((w) => w.classList.add('in')); return; }
     if (el.id === 'skillGroups') { seen.skills = true; $$('.skill-group', el).forEach((g) => g.classList.add('in')); return; }
+    if (el.id === 'projectGroups') { seen.projects = true; $$('.project-group', el).forEach((g) => g.classList.add('in')); return; }
     if (el.id === 'eduList') { seen.edu = true; $$('li', el).forEach((li) => li.classList.add('in')); return; }
     if (el.id === 'langList') { el.classList.add('in'); return; }
     el.classList.add('in');
@@ -489,11 +557,11 @@
     }
   }), { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
   $$('.wipe').forEach((w) => w.parentElement.classList.add('wipe-host'));
-  $$('.wipe-host, .rv, #skillGroups, #eduList, #langList').forEach((el) => revealer.observe(el));
+  $$('.wipe-host, .rv, #projectGroups, #skillGroups, #eduList, #langList').forEach((el) => revealer.observe(el));
   addEventListener('scroll', onScroll, { passive: true });
   const links = $$('.nav a');
   const io = new IntersectionObserver((es) => es.forEach((en) => { if (en.isIntersecting) links.forEach((a) => a.classList.toggle('active', a.hash === '#' + en.target.id)); }), { rootMargin: '-45% 0px -50% 0px' });
-  ['historico', 'competencias', 'formacao', 'contato'].forEach((id) => io.observe(document.getElementById(id)));
+  ['historico', 'projetos', 'competencias', 'formacao', 'contato'].forEach((id) => io.observe(document.getElementById(id)));
 
   const toastEl = $('#toast'); let tt;
   function toast(m) { toastEl.textContent = m; toastEl.classList.add('show'); clearTimeout(tt); tt = setTimeout(() => toastEl.classList.remove('show'), 2400); }
