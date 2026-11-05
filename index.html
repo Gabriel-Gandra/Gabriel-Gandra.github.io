@@ -3,30 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Gabriel Gandra · Analista de Infraestrutura de TI</title>
+<title>Gabriel Gandra | Analista de Infraestrutura de TI</title>
 <meta name="description" content="Analista de Infraestrutura de TI em Belo Horizonte. Mais de 3 anos em suporte N1/N2, Active Directory, Azure e Intune, com atendimento em português e espanhol.">
-<meta property="og:title" content="Gabriel Gandra · Analista de Infraestrutura de TI">
+<meta property="og:title" content="Gabriel Gandra | Analista de Infraestrutura de TI">
 <meta property="og:description" content="Suporte N1/N2, Active Directory, Azure e Intune. Atendimento em português e espanhol.">
-<meta property="og:image" content="assets/og.jpg">
+<meta property="og:image" content="https://gabriel-gandra.github.io/assets/og.jpg">
 <meta property="og:type" content="profile">
-<meta name="theme-color" content="#14202E">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2314202E'/%3E%3Ctext x='32' y='43' font-family='Arial' font-weight='800' font-size='28' text-anchor='middle' fill='%237FA6FF'%3EGG%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#2438E8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='6' fill='%232438E8'/%3E%3Crect x='10' y='14' width='44' height='36' rx='3' fill='%23FAFAF7'/%3E%3Cpath d='M16 40h2v6h-2zm4 0h1v6h-1zm3 0h3v6h-3zm5 0h1v6h-1zm3 0h2v6h-2zm4 0h1v6h-1zm3 0h3v6h-3zm5 0h1v6h-1z' fill='%230A0A0A'/%3E%3Ctext x='32' y='33' font-family='Arial' font-weight='900' font-size='15' text-anchor='middle' fill='%230A0A0A'%3EGG%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
-<script>
-  try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
-</script>
+<script>try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
 </head>
 <body>
 <a class="skip" href="#main" data-i18n="skip">Pular para o conteúdo</a>
 
-<header class="topbar">
-  <a class="brand" href="#topo" aria-label="Início">
-    <span class="brand-mark">GG</span>
-    <span class="brand-name">Gabriel Gandra</span>
-  </a>
+<header class="topbar" id="topbar">
+  <a class="mark" href="#topo" aria-label="Gabriel Gandra, início">GG</a>
   <nav class="nav" aria-label="Seções">
     <a href="#historico" data-i18n="nav.history">Histórico</a>
     <a href="#competencias" data-i18n="nav.skills">Competências</a>
@@ -34,138 +29,159 @@
     <a href="#contato" data-i18n="nav.contact">Contato</a>
   </nav>
   <div class="tools">
-    <div class="lang" role="group" aria-label="Idioma">
+    <div class="lang" role="group" aria-label="Idioma / Language">
       <button type="button" data-lang="pt" aria-pressed="true">PT</button>
       <button type="button" data-lang="es" aria-pressed="false">ES</button>
       <button type="button" data-lang="en" aria-pressed="false">EN</button>
     </div>
-    <button class="icon-btn" type="button" id="themeBtn" aria-label="Alternar tema">
-      <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
+    <button class="theme" type="button" id="themeBtn" data-i18n-label="theme" aria-label="Alternar tema claro ou escuro">
       <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
+      <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
     </button>
-    <a class="btn btn-small" href="assets/Curriculo_Gabriel_Gandra.pdf" download data-i18n="cta.download">Baixar currículo</a>
   </div>
 </header>
 
 <main id="main">
-  <!-- HERO -->
+  <!-- ============ HERO ============ -->
   <section class="hero" id="topo">
-    <div class="hero-copy">
-      <p class="hello" data-i18n="hero.hello">Olá, eu sou</p>
-      <h1 class="name"><span class="line">Gabriel</span><span class="line">Gandra</span></h1>
-      <p class="role" data-i18n="hero.role">Analista de Infraestrutura de TI em Belo Horizonte</p>
-      <p class="lead" data-i18n="hero.lead">Cuido de quem usa a tecnologia da empresa: contas, acessos, computadores e chamados, em português e espanhol. Há mais de 3 anos no ambiente corporativo da Prosegur.</p>
-      <div class="hero-actions">
-        <a class="btn" href="#contato" data-i18n="cta.open">Abrir chamado</a>
-        <a class="btn btn-ghost" href="#historico" data-i18n="cta.history">Ver histórico</a>
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <p class="kicker" data-i18n="hero.kicker">Analista de Infraestrutura de TI em Belo Horizonte</p>
+        <h1 class="name" aria-label="Gabriel Gandra"><span>Gabriel</span><span>Gandra</span></h1>
+        <p class="lead" data-i18n="hero.lead">Mantenho contas, acessos, computadores e chamados funcionando para quem trabalha, em português e espanhol. Mais de 3 anos no ambiente corporativo da Prosegur.</p>
+        <div class="hero-actions">
+          <a class="btn btn-paper" href="#contato" data-i18n="cta.contact">Entrar em contato</a>
+          <a class="btn btn-outline-light" href="assets/Curriculo_Gabriel_Gandra.pdf" download data-i18n="cta.download">Baixar currículo em PDF</a>
+        </div>
+      </div>
+
+      <div class="printer-wrap">
+        <div class="printer" aria-hidden="true">
+          <div class="printer-top">
+            <span class="printer-brand">GG-420t</span>
+            <span class="printer-led" id="printerLed"></span>
+          </div>
+          <div class="printer-slot"></div>
+        </div>
+        <div class="feed" id="feed">
+          <article class="label asset" id="assetLabel" aria-label="Etiqueta com os dados de Gabriel Gandra">
+            <div class="perf" aria-hidden="true"></div>
+            <div class="label-head">
+              <span data-i18n="label.asset">Ativo de TI</span>
+              <span>BH / MG</span>
+            </div>
+            <div class="label-body">
+              <img class="dither" src="assets/gabriel-termico.png" alt="Foto de Gabriel Gandra" width="116" height="116">
+              <dl class="label-fields">
+                <div><dt data-i18n="label.name">Nome</dt><dd>Gabriel R. P. Gandra</dd></div>
+                <div><dt data-i18n="label.role">Função</dt><dd data-i18n="label.roleV">Analista de Infraestrutura Jr.</dd></div>
+                <div><dt data-i18n="label.since">Em TI desde</dt><dd>02/2023</dd></div>
+                <div><dt data-i18n="label.langs">Idiomas</dt><dd>PT, ES, EN</dd></div>
+              </dl>
+            </div>
+            <svg class="barcode" id="assetBarcode" role="img" aria-label="Código de barras GABRIEL-GANDRA"></svg>
+            <p class="barcode-text">GABRIEL-GANDRA</p>
+          </article>
+        </div>
+        <button class="reprint" type="button" id="reprint" data-i18n="label.reprint">Imprimir de novo</button>
+        <p class="drag-hint" data-i18n="label.hint">Arraste a etiqueta</p>
       </div>
     </div>
-
-    <article class="ticket" id="ticket" aria-label="Chamado de exemplo">
-      <div class="ticket-head">
-        <span class="ticket-id">REQ-2026-0001</span>
-        <span class="status" data-state="new" id="ticketStatus" aria-live="polite">
-          <span class="dot"></span><span class="status-text" data-i18n="t.s.new">Novo</span>
-        </span>
-      </div>
-      <h2 class="ticket-title" data-i18n="t.title">Procura-se analista de infraestrutura de TI</h2>
-      <dl class="fields">
-        <div class="field" style="--i:0"><dt data-i18n="t.f.requester">Solicitante</dt><dd data-i18n="t.v.requester">Sua empresa</dd></div>
-        <div class="field" style="--i:1"><dt data-i18n="t.f.category">Categoria</dt><dd data-i18n="t.v.category">Infraestrutura e suporte</dd></div>
-        <div class="field" style="--i:2"><dt data-i18n="t.f.priority">Prioridade</dt><dd><span class="prio" data-i18n="t.v.priority">Alta</span></dd></div>
-        <div class="field" style="--i:3"><dt data-i18n="t.f.assignee">Atribuído a</dt>
-          <dd class="assignee"><img src="assets/gabriel.jpg" alt="" width="28" height="28"><span>Gabriel Gandra</span></dd></div>
-      </dl>
-      <div class="progress" aria-hidden="true"><span id="ticketBar"></span></div>
-      <div class="resolution" id="resolution">
-        <p class="res-label" data-i18n="t.res.label">Nota de resolução</p>
-        <p class="res-text" data-i18n="t.res.text">Profissional encontrado: 3+ anos em TI corporativa, Active Directory, Azure e Intune, atendimento bilíngue. Disponível para entrevista.</p>
-      </div>
-      <button class="replay" type="button" id="replay" data-i18n="t.replay">Reabrir chamado</button>
-    </article>
   </section>
 
-  <!-- HIGHLIGHTS -->
-  <section class="facts" aria-label="Destaques">
-    <div class="fact"><strong data-count="3" data-suffix="+">3+</strong><span data-i18n="facts.years">anos em TI corporativa</span></div>
-    <div class="fact"><strong data-count="3">3</strong><span data-i18n="facts.roles">cargos no mesmo cliente, de assistente a analista</span></div>
-    <div class="fact"><strong>PT / ES</strong><span data-i18n="facts.lang">suporte diário para áreas da Espanha</span></div>
+  <!-- ============ SUMMARY ============ -->
+  <section class="summary" aria-label="Resumo">
+    <p data-i18n="summary">Comecei como assistente de suporte em 2023 e hoje sou analista de infraestrutura no mesmo cliente. No caminho, passei a administrar Active Directory, Azure e Intune, a escrever scripts que tiram trabalho repetitivo da fila e a atender as áreas da Prosegur na Espanha no idioma delas.</p>
   </section>
 
-  <!-- HISTORY -->
+  <!-- ============ HISTORY / PATCH PANEL ============ -->
   <section class="section" id="historico">
     <div class="section-head">
-      <h2 data-i18n="history.title">Histórico de atendimento</h2>
-      <p data-i18n="history.intro">Trajetória contínua no cliente Prosegur, por meio de empresas prestadoras de serviço de TI.</p>
+      <h2 data-i18n="history.title">Histórico</h2>
+      <p data-i18n="history.intro">Três cargos no cliente Prosegur, por empresas prestadoras de serviço de TI. Conecte uma porta para ver o que eu fazia.</p>
     </div>
-    <ol class="timeline" id="timeline"></ol>
+
+    <div class="panel-wrap" id="panelWrap">
+      <div class="patch-panel" role="tablist" aria-label="Cargos" id="ports"></div>
+      <svg class="cable-layer" id="cableLayer" aria-hidden="true"><path id="cable" /></svg>
+      <div class="job-detail" id="jobDetail" role="tabpanel" tabindex="0"></div>
+    </div>
   </section>
 
-  <!-- SKILLS -->
+  <!-- ============ SKILLS ============ -->
   <section class="section" id="competencias">
     <div class="section-head">
       <h2 data-i18n="skills.title">Competências</h2>
-      <p data-i18n="skills.intro">Escolha uma competência para ver no histórico onde ela foi usada.</p>
+      <p data-i18n="skills.intro">Escolha uma etiqueta: as portas e as atividades onde ela foi usada acendem no histórico.</p>
     </div>
     <div class="skill-groups" id="skillGroups"></div>
     <p class="filter-note" id="filterNote" aria-live="polite"></p>
   </section>
 
-  <!-- EDUCATION + LANGUAGES -->
+  <!-- ============ EDUCATION ============ -->
   <section class="section split" id="formacao">
     <div>
-      <div class="section-head"><h2 data-i18n="edu.title">Formação</h2></div>
+      <h2 class="h-small" data-i18n="edu.title">Formação</h2>
       <ul class="edu" id="eduList"></ul>
     </div>
     <div>
-      <div class="section-head"><h2 data-i18n="lang.title">Idiomas</h2></div>
+      <h2 class="h-small" data-i18n="lang.title">Idiomas</h2>
       <ul class="langs" id="langList"></ul>
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- ============ CONTACT / LABEL MAKER ============ -->
   <section class="section contact" id="contato">
-    <div class="contact-intro">
-      <h2 data-i18n="contact.title">Abrir chamado</h2>
-      <p data-i18n="contact.intro">Tem uma vaga ou projeto? Preencha os campos e seu aplicativo de e-mail abre com a mensagem pronta.</p>
-      <ul class="channels">
-        <li>
-          <span data-i18n="contact.email">E-mail</span>
-          <button type="button" class="copy" id="copyEmail" data-email="contatogabrielgandra@gmail.com">contatogabrielgandra@gmail.com</button>
-        </li>
-        <li>
-          <span>WhatsApp</span>
-          <a href="https://wa.me/5531997642122" target="_blank" rel="noopener">(31) 99764-2122</a>
-        </li>
-        <li>
-          <span data-i18n="contact.location">Localização</span>
-          <span>Belo Horizonte, MG</span>
-        </li>
-      </ul>
+    <div class="section-head">
+      <h2 data-i18n="contact.title">Imprima sua etiqueta</h2>
+      <p data-i18n="contact.intro">Tem uma vaga ou projeto? Preencha os campos, confira a etiqueta e envie. Seu aplicativo de e-mail abre com a mensagem pronta.</p>
     </div>
-    <form class="form" id="contactForm" novalidate>
-      <label><span data-i18n="form.name">Seu nome</span><input name="name" autocomplete="name" required></label>
-      <label><span data-i18n="form.company">Empresa</span><input name="company" autocomplete="organization"></label>
-      <label><span data-i18n="form.subject">Assunto</span>
-        <select name="subject">
-          <option value="job" data-i18n="form.s.job">Vaga de emprego</option>
-          <option value="interview" data-i18n="form.s.interview">Convite para entrevista</option>
-          <option value="other" data-i18n="form.s.other">Outro assunto</option>
-        </select>
-      </label>
-      <label class="full"><span data-i18n="form.message">Mensagem</span><textarea name="message" rows="4" required></textarea></label>
-      <p class="form-error" id="formError" role="alert"></p>
-      <button class="btn" type="submit" data-i18n="form.send">Enviar por e-mail</button>
-    </form>
+
+    <div class="maker">
+      <form class="form" id="contactForm" novalidate>
+        <label><span data-i18n="form.name">Seu nome</span><input name="name" autocomplete="name" maxlength="60" required></label>
+        <label><span data-i18n="form.company">Empresa</span><input name="company" autocomplete="organization" maxlength="60"></label>
+        <label class="full"><span data-i18n="form.subject">Assunto</span>
+          <select name="subject">
+            <option value="job" data-i18n="form.s.job">Vaga de emprego</option>
+            <option value="interview" data-i18n="form.s.interview">Convite para entrevista</option>
+            <option value="other" data-i18n="form.s.other">Outro assunto</option>
+          </select>
+        </label>
+        <label class="full"><span data-i18n="form.message">Mensagem</span><textarea name="message" rows="4" maxlength="800" required></textarea></label>
+        <p class="form-error full" id="formError" role="alert"></p>
+        <button class="btn btn-cobalt" type="submit" data-i18n="form.send">Enviar por e-mail</button>
+      </form>
+
+      <div class="maker-preview">
+        <article class="label contact-label" id="contactLabel" aria-hidden="true">
+          <div class="perf"></div>
+          <div class="label-head"><span data-i18n="cl.head">Para: Gabriel Gandra</span><span id="clDate"></span></div>
+          <p class="cl-subject" id="clSubject"></p>
+          <dl class="label-fields">
+            <div><dt data-i18n="cl.from">De</dt><dd id="clName" class="ph"></dd></div>
+            <div><dt data-i18n="cl.company">Empresa</dt><dd id="clCompany" class="ph"></dd></div>
+          </dl>
+          <p class="cl-msg ph" id="clMsg"></p>
+          <svg class="barcode" id="contactBarcode"></svg>
+        </article>
+        <ul class="channels">
+          <li><span data-i18n="contact.email">E-mail</span>
+            <button type="button" class="copy" id="copyEmail" data-email="contatogabrielgandra@gmail.com">contatogabrielgandra@gmail.com</button></li>
+          <li><span>WhatsApp</span><a href="https://wa.me/5531997642122" target="_blank" rel="noopener">(31) 99764-2122</a></li>
+        </ul>
+      </div>
+    </div>
   </section>
 </main>
 
 <footer class="footer">
-  <p data-i18n="footer">Gabriel Rodrigues Pinto Gandra. Feito com HTML, CSS e JavaScript.</p>
+  <p data-i18n="footer">Gabriel Rodrigues Pinto Gandra, Belo Horizonte. Feito à mão com HTML, CSS e JavaScript.</p>
   <a href="#topo" data-i18n="footer.top">Voltar ao topo</a>
 </footer>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="assets/vendor/JsBarcode.code128.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

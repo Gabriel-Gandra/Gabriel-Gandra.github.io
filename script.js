@@ -1,115 +1,94 @@
 (() => {
   const root = document.documentElement;
   root.classList.add('js');
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 
-  /* ------------------------------------------------------------------ */
-  /* Content                                                             */
-  /* ------------------------------------------------------------------ */
+  /* =================================================================== */
+  /* Copy                                                                 */
+  /* =================================================================== */
   const UI = {
     pt: {
-      skip: 'Pular para o conteúdo',
+      skip: 'Pular para o conteúdo', theme: 'Alternar tema claro ou escuro',
       'nav.history': 'Histórico', 'nav.skills': 'Competências', 'nav.education': 'Formação', 'nav.contact': 'Contato',
-      'cta.download': 'Baixar currículo', 'cta.open': 'Abrir chamado', 'cta.history': 'Ver histórico',
-      'hero.hello': 'Olá, eu sou',
-      'hero.role': 'Analista de Infraestrutura de TI em Belo Horizonte',
-      'hero.lead': 'Cuido de quem usa a tecnologia da empresa: contas, acessos, computadores e chamados, em português e espanhol. Há mais de 3 anos no ambiente corporativo da Prosegur.',
-      't.s.new': 'Novo', 't.s.progress': 'Em atendimento', 't.s.resolved': 'Resolvido',
-      't.title': 'Procura-se analista de infraestrutura de TI',
-      't.f.requester': 'Solicitante', 't.f.category': 'Categoria', 't.f.priority': 'Prioridade', 't.f.assignee': 'Atribuído a',
-      't.v.requester': 'Sua empresa', 't.v.category': 'Infraestrutura e suporte', 't.v.priority': 'Alta',
-      't.res.label': 'Nota de resolução',
-      't.res.text': 'Profissional encontrado: 3+ anos em TI corporativa, Active Directory, Azure e Intune, atendimento bilíngue. Disponível para entrevista.',
-      't.replay': 'Reabrir chamado',
-      'facts.years': 'anos em TI corporativa', 'facts.roles': 'cargos no mesmo cliente, de assistente a analista', 'facts.lang': 'suporte diário para áreas da Espanha',
-      'history.title': 'Histórico de atendimento',
-      'history.intro': 'Trajetória contínua no cliente Prosegur, por meio de empresas prestadoras de serviço de TI.',
+      'hero.kicker': 'Analista de Infraestrutura de TI em Belo Horizonte',
+      'hero.lead': 'Mantenho contas, acessos, computadores e chamados funcionando para quem trabalha, em português e espanhol. Mais de 3 anos no ambiente corporativo da Prosegur.',
+      'cta.contact': 'Entrar em contato', 'cta.download': 'Baixar currículo em PDF',
+      'label.asset': 'Ativo de TI', 'label.name': 'Nome', 'label.role': 'Função', 'label.roleV': 'Analista de Infraestrutura Jr.',
+      'label.since': 'Em TI desde', 'label.langs': 'Idiomas', 'label.reprint': 'Imprimir de novo', 'label.hint': 'Arraste a etiqueta',
+      summary: 'Comecei como assistente de suporte em 2023 e hoje sou analista de infraestrutura no mesmo cliente. No caminho, passei a administrar Active Directory, Azure e Intune, a escrever scripts que tiram trabalho repetitivo da fila e a atender as áreas da Prosegur na Espanha no idioma delas.',
+      'history.title': 'Histórico',
+      'history.intro': 'Três cargos no cliente Prosegur, por empresas prestadoras de serviço de TI. Conecte uma porta para ver o que eu fazia.',
       'skills.title': 'Competências',
-      'skills.intro': 'Escolha uma competência para ver no histórico onde ela foi usada.',
-      'skills.hits': n => n === 1 ? '1 atividade no histórico usa esta competência.' : `${n} atividades no histórico usam esta competência.`,
+      'skills.intro': 'Escolha uma etiqueta: as portas e as atividades onde ela foi usada acendem no histórico.',
+      'skills.hits': (n, total) => `Usada em ${n} de ${total} cargos. As portas acesas no histórico mostram onde.`,
       'skills.clear': 'Limpar filtro',
       'edu.title': 'Formação', 'lang.title': 'Idiomas',
-      'contact.title': 'Abrir chamado',
-      'contact.intro': 'Tem uma vaga ou projeto? Preencha os campos e seu aplicativo de e-mail abre com a mensagem pronta.',
-      'contact.email': 'E-mail', 'contact.location': 'Localização',
+      'contact.title': 'Imprima sua etiqueta',
+      'contact.intro': 'Tem uma vaga ou projeto? Preencha os campos, confira a etiqueta e envie. Seu aplicativo de e-mail abre com a mensagem pronta.',
       'form.name': 'Seu nome', 'form.company': 'Empresa', 'form.subject': 'Assunto', 'form.message': 'Mensagem',
       'form.s.job': 'Vaga de emprego', 'form.s.interview': 'Convite para entrevista', 'form.s.other': 'Outro assunto',
-      'form.send': 'Enviar por e-mail',
-      'form.err': 'Preencha seu nome e a mensagem para enviar.',
-      'form.opened': 'Mensagem pronta no seu e-mail',
-      'copied': 'E-mail copiado', 'copyFail': 'Não foi possível copiar. Selecione o endereço manualmente.',
-      footer: 'Gabriel Rodrigues Pinto Gandra. Feito com HTML, CSS e JavaScript.', 'footer.top': 'Voltar ao topo',
-      present: 'Atual', allocated: 'alocado na Prosegur', current: 'Cargo atual'
+      'form.send': 'Enviar por e-mail', 'form.err': 'Preencha seu nome e a mensagem para enviar.', 'form.opened': 'Mensagem pronta no seu e-mail',
+      'cl.head': 'Para: Gabriel Gandra', 'cl.from': 'De', 'cl.company': 'Empresa',
+      'cl.phName': 'Seu nome', 'cl.phCompany': 'Sua empresa', 'cl.phMsg': 'Sua mensagem aparece aqui enquanto você digita.',
+      'contact.email': 'E-mail', copied: 'E-mail copiado', copyFail: 'Não foi possível copiar. Selecione o endereço manualmente.',
+      footer: 'Gabriel Rodrigues Pinto Gandra, Belo Horizonte. Feito à mão com HTML, CSS e JavaScript.', 'footer.top': 'Voltar ao topo',
+      present: 'atual', allocated: 'alocado na Prosegur', ports: 'Cargos'
     },
     es: {
-      skip: 'Saltar al contenido',
+      skip: 'Saltar al contenido', theme: 'Cambiar tema claro u oscuro',
       'nav.history': 'Historial', 'nav.skills': 'Competencias', 'nav.education': 'Formación', 'nav.contact': 'Contacto',
-      'cta.download': 'Descargar CV', 'cta.open': 'Abrir ticket', 'cta.history': 'Ver historial',
-      'hero.hello': 'Hola, soy',
-      'hero.role': 'Analista de Infraestructura TI en Belo Horizonte, Brasil',
-      'hero.lead': 'Me ocupo de quienes usan la tecnología de la empresa: cuentas, accesos, equipos y tickets, en portugués y español. Más de 3 años en el entorno corporativo de Prosegur.',
-      't.s.new': 'Nuevo', 't.s.progress': 'En curso', 't.s.resolved': 'Resuelto',
-      't.title': 'Se busca analista de infraestructura TI',
-      't.f.requester': 'Solicitante', 't.f.category': 'Categoría', 't.f.priority': 'Prioridad', 't.f.assignee': 'Asignado a',
-      't.v.requester': 'Tu empresa', 't.v.category': 'Infraestructura y soporte', 't.v.priority': 'Alta',
-      't.res.label': 'Nota de resolución',
-      't.res.text': 'Profesional encontrado: más de 3 años en TI corporativa, Active Directory, Azure e Intune, atención bilingüe. Disponible para entrevista.',
-      't.replay': 'Reabrir ticket',
-      'facts.years': 'años en TI corporativa', 'facts.roles': 'puestos en el mismo cliente, de asistente a analista', 'facts.lang': 'soporte diario a áreas de España',
-      'history.title': 'Historial de atención',
-      'history.intro': 'Trayectoria continua en el cliente Prosegur, a través de empresas proveedoras de servicios TI.',
+      'hero.kicker': 'Analista de Infraestructura TI en Belo Horizonte, Brasil',
+      'hero.lead': 'Mantengo cuentas, accesos, equipos y tickets funcionando para quienes trabajan, en portugués y español. Más de 3 años en el entorno corporativo de Prosegur.',
+      'cta.contact': 'Contactar', 'cta.download': 'Descargar CV en PDF',
+      'label.asset': 'Activo TI', 'label.name': 'Nombre', 'label.role': 'Puesto', 'label.roleV': 'Analista de Infraestructura Jr.',
+      'label.since': 'En TI desde', 'label.langs': 'Idiomas', 'label.reprint': 'Imprimir otra vez', 'label.hint': 'Arrastra la etiqueta',
+      summary: 'Empecé como asistente de soporte en 2023 y hoy soy analista de infraestructura en el mismo cliente. En el camino pasé a administrar Active Directory, Azure e Intune, a escribir scripts que quitan trabajo repetitivo de la cola y a atender a las áreas de Prosegur en España en su idioma.',
+      'history.title': 'Historial',
+      'history.intro': 'Tres puestos en el cliente Prosegur, a través de empresas proveedoras de servicios TI. Conecta un puerto para ver lo que hacía.',
       'skills.title': 'Competencias',
-      'skills.intro': 'Elige una competencia para ver en el historial dónde se utilizó.',
-      'skills.hits': n => n === 1 ? '1 actividad del historial usa esta competencia.' : `${n} actividades del historial usan esta competencia.`,
+      'skills.intro': 'Elige una etiqueta: los puertos y las actividades donde se usó se encienden en el historial.',
+      'skills.hits': (n, total) => `Usada en ${n} de ${total} puestos. Los puertos encendidos en el historial muestran dónde.`,
       'skills.clear': 'Quitar filtro',
       'edu.title': 'Formación', 'lang.title': 'Idiomas',
-      'contact.title': 'Abrir ticket',
-      'contact.intro': '¿Tienes una vacante o un proyecto? Completa los campos y tu aplicación de correo se abrirá con el mensaje listo.',
-      'contact.email': 'Correo', 'contact.location': 'Ubicación',
+      'contact.title': 'Imprime tu etiqueta',
+      'contact.intro': '¿Tienes una vacante o un proyecto? Completa los campos, revisa la etiqueta y envía. Tu aplicación de correo se abre con el mensaje listo.',
       'form.name': 'Tu nombre', 'form.company': 'Empresa', 'form.subject': 'Asunto', 'form.message': 'Mensaje',
       'form.s.job': 'Oferta de empleo', 'form.s.interview': 'Invitación a entrevista', 'form.s.other': 'Otro asunto',
-      'form.send': 'Enviar por correo',
-      'form.err': 'Completa tu nombre y el mensaje para enviar.',
-      'form.opened': 'Mensaje listo en tu correo',
-      'copied': 'Correo copiado', 'copyFail': 'No se pudo copiar. Selecciona la dirección manualmente.',
-      footer: 'Gabriel Rodrigues Pinto Gandra. Hecho con HTML, CSS y JavaScript.', 'footer.top': 'Volver arriba',
-      present: 'Actual', allocated: 'asignado a Prosegur', current: 'Puesto actual'
+      'form.send': 'Enviar por correo', 'form.err': 'Completa tu nombre y el mensaje para enviar.', 'form.opened': 'Mensaje listo en tu correo',
+      'cl.head': 'Para: Gabriel Gandra', 'cl.from': 'De', 'cl.company': 'Empresa',
+      'cl.phName': 'Tu nombre', 'cl.phCompany': 'Tu empresa', 'cl.phMsg': 'Tu mensaje aparece aquí mientras escribes.',
+      'contact.email': 'Correo', copied: 'Correo copiado', copyFail: 'No se pudo copiar. Selecciona la dirección manualmente.',
+      footer: 'Gabriel Rodrigues Pinto Gandra, Belo Horizonte. Hecho a mano con HTML, CSS y JavaScript.', 'footer.top': 'Volver arriba',
+      present: 'actual', allocated: 'asignado a Prosegur', ports: 'Puestos'
     },
     en: {
-      skip: 'Skip to content',
+      skip: 'Skip to content', theme: 'Switch light or dark theme',
       'nav.history': 'History', 'nav.skills': 'Skills', 'nav.education': 'Education', 'nav.contact': 'Contact',
-      'cta.download': 'Download résumé', 'cta.open': 'Open a ticket', 'cta.history': 'See history',
-      'hero.hello': 'Hi, I’m',
-      'hero.role': 'IT Infrastructure Analyst in Belo Horizonte, Brazil',
-      'hero.lead': 'I look after the people who use a company’s technology: accounts, access, computers and tickets, in Portuguese and Spanish. Over 3 years in Prosegur’s corporate environment.',
-      't.s.new': 'New', 't.s.progress': 'In progress', 't.s.resolved': 'Resolved',
-      't.title': 'Looking for an IT infrastructure analyst',
-      't.f.requester': 'Requester', 't.f.category': 'Category', 't.f.priority': 'Priority', 't.f.assignee': 'Assigned to',
-      't.v.requester': 'Your company', 't.v.category': 'Infrastructure and support', 't.v.priority': 'High',
-      't.res.label': 'Resolution note',
-      't.res.text': 'Match found: 3+ years in corporate IT, Active Directory, Azure and Intune, bilingual support. Available for interviews.',
-      't.replay': 'Reopen ticket',
-      'facts.years': 'years in corporate IT', 'facts.roles': 'roles at the same client, from assistant to analyst', 'facts.lang': 'daily support for teams in Spain',
-      'history.title': 'Service history',
-      'history.intro': 'Continuous track record at Prosegur, through IT service provider companies.',
+      'hero.kicker': 'IT Infrastructure Analyst in Belo Horizonte, Brazil',
+      'hero.lead': 'I keep accounts, access, computers and tickets working for the people who rely on them, in Portuguese and Spanish. Over 3 years in Prosegur’s corporate environment.',
+      'cta.contact': 'Get in touch', 'cta.download': 'Download résumé (PDF)',
+      'label.asset': 'IT asset', 'label.name': 'Name', 'label.role': 'Role', 'label.roleV': 'Junior Infrastructure Analyst',
+      'label.since': 'In IT since', 'label.langs': 'Languages', 'label.reprint': 'Print again', 'label.hint': 'Drag the label',
+      summary: 'I started as a support assistant in 2023 and today I’m an infrastructure analyst at the same client. Along the way I took over Active Directory, Azure and Intune administration, wrote scripts that take repetitive work off the queue, and started supporting Prosegur’s teams in Spain in their own language.',
+      'history.title': 'History',
+      'history.intro': 'Three roles at Prosegur, through IT service providers. Plug into a port to see what I did.',
       'skills.title': 'Skills',
-      'skills.intro': 'Pick a skill to see where it was used in my history.',
-      'skills.hits': n => n === 1 ? '1 activity in my history uses this skill.' : `${n} activities in my history use this skill.`,
+      'skills.intro': 'Pick a label: the ports and activities where it was used light up in my history.',
+      'skills.hits': (n, total) => `Used in ${n} of ${total} roles. The lit ports in my history show where.`,
       'skills.clear': 'Clear filter',
       'edu.title': 'Education', 'lang.title': 'Languages',
-      'contact.title': 'Open a ticket',
-      'contact.intro': 'Have a role or project in mind? Fill in the fields and your email app opens with the message ready.',
-      'contact.email': 'Email', 'contact.location': 'Location',
+      'contact.title': 'Print your label',
+      'contact.intro': 'Have a role or project in mind? Fill in the fields, check the label and send. Your email app opens with the message ready.',
       'form.name': 'Your name', 'form.company': 'Company', 'form.subject': 'Subject', 'form.message': 'Message',
       'form.s.job': 'Job opening', 'form.s.interview': 'Interview invitation', 'form.s.other': 'Something else',
-      'form.send': 'Send by email',
-      'form.err': 'Fill in your name and message to send.',
-      'form.opened': 'Message ready in your email',
-      'copied': 'Email copied', 'copyFail': 'Couldn’t copy. Select the address manually.',
-      footer: 'Gabriel Rodrigues Pinto Gandra. Built with HTML, CSS and JavaScript.', 'footer.top': 'Back to top',
-      present: 'Present', allocated: 'assigned to Prosegur', current: 'Current role'
+      'form.send': 'Send by email', 'form.err': 'Fill in your name and message to send.', 'form.opened': 'Message ready in your email',
+      'cl.head': 'To: Gabriel Gandra', 'cl.from': 'From', 'cl.company': 'Company',
+      'cl.phName': 'Your name', 'cl.phCompany': 'Your company', 'cl.phMsg': 'Your message shows up here as you type.',
+      'contact.email': 'Email', copied: 'Email copied', copyFail: 'Couldn’t copy. Select the address manually.',
+      footer: 'Gabriel Rodrigues Pinto Gandra, Belo Horizonte. Handmade with HTML, CSS and JavaScript.', 'footer.top': 'Back to top',
+      present: 'present', allocated: 'assigned to Prosegur', ports: 'Roles'
     }
   };
 
@@ -127,14 +106,16 @@
       ['printers', { pt: 'Impressoras Zebra e Lexmark', es: 'Impresoras Zebra y Lexmark', en: 'Zebra and Lexmark printers' }], ['ocs', 'OCS Inventory'] ] },
     { group: { pt: 'Programação e dados', es: 'Programación y datos', en: 'Programming and data' }, items: [
       ['scripts', { pt: 'Scripts de automação', es: 'Scripts de automatización', en: 'Automation scripts' }],
-      ['js', 'JavaScript'], ['c', 'C e C++'], ['sql', 'SQL (MySQL)'], ['oracle', { pt: 'Oracle (consultas)', es: 'Oracle (consultas)', en: 'Oracle (queries)' }] ] },
+      ['js', 'JavaScript'], ['c', { pt: 'C e C++', es: 'C y C++', en: 'C and C++' }], ['sql', 'SQL (MySQL)'],
+      ['oracle', { pt: 'Oracle (consultas)', es: 'Oracle (consultas)', en: 'Oracle (queries)' }] ] },
     { group: { pt: 'Documentação', es: 'Documentación', en: 'Documentation' }, items: [
       ['docs', { pt: 'Manuais operacionais', es: 'Manuales operativos', en: 'Operating manuals' }],
       ['office', { pt: 'Word, Excel e PowerPoint', es: 'Word, Excel y PowerPoint', en: 'Word, Excel and PowerPoint' }] ] }
   ];
 
   const JOBS = [
-    { current: true, from: '06/2025', to: null,
+    { tag: 'P1', color: 'var(--cable-blue)', from: '06/2025', to: null,
+      short: { pt: 'Analista de Infraestrutura', es: 'Analista de Infraestructura', en: 'Infrastructure Analyst' },
       title: { pt: 'Analista de Infraestrutura Jr.', es: 'Analista de Infraestructura Jr.', en: 'Junior Infrastructure Analyst' },
       company: 'JDC Consultoria em Informática',
       items: [
@@ -163,16 +144,26 @@
           es: 'Atiendo a usuarios por Teams, teléfono, en persona y mediante BMC Helix ITSM; instalo software e impresoras Zebra, Lexmark y matriciales.',
           en: 'Support users via Teams, phone, in person and through BMC Helix ITSM; install software and Zebra, Lexmark and dot-matrix printers.' }
       ] },
-    { from: '02/2025', to: '06/2025',
+    { tag: 'P2', color: 'var(--cable-yellow)', from: '02/2025', to: '06/2025',
+      short: { pt: 'Técnico de Suporte', es: 'Técnico de Soporte', en: 'Support Technician' },
       title: { pt: 'Técnico de Suporte Jr.', es: 'Técnico de Soporte Jr.', en: 'Junior Support Technician' },
       company: 'Fractalia Brasil Serviços Tecnológicos',
       items: [
-        { tags: ['ad', 'azure', 'intune', 'lifecycle', 'spanish', 'access'],
-          pt: 'Gestão de dispositivos e acessos com AD, Azure e Intune, manutenção do parque, controle de estoque e suporte bilíngue no cliente.',
-          es: 'Gestión de dispositivos y accesos con AD, Azure e Intune, mantenimiento del parque, control de inventario y soporte bilingüe en el cliente.',
-          en: 'Device and access management with AD, Azure and Intune, hardware maintenance, stock control and bilingual support on site.' }
+        { tags: ['ad', 'azure', 'intune', 'access'],
+          pt: 'Gestão de dispositivos e acessos com Active Directory, Azure e Intune.',
+          es: 'Gestión de dispositivos y accesos con Active Directory, Azure e Intune.',
+          en: 'Device and access management with Active Directory, Azure and Intune.' },
+        { tags: ['lifecycle', 'format'],
+          pt: 'Manutenção do parque de computadores e controle de estoque de equipamentos.',
+          es: 'Mantenimiento del parque de equipos y control de inventario.',
+          en: 'Hardware maintenance and equipment stock control.' },
+        { tags: ['spanish', 'n1n2'],
+          pt: 'Suporte bilíngue, em português e espanhol, mantendo a continuidade do atendimento no cliente.',
+          es: 'Soporte bilingüe, en portugués y español, manteniendo la continuidad del servicio en el cliente.',
+          en: 'Bilingual support in Portuguese and Spanish, keeping service continuity at the client.' }
       ] },
-    { from: '02/2023', to: '02/2025',
+    { tag: 'P3', color: 'var(--cable-green)', from: '02/2023', to: '02/2025',
+      short: { pt: 'Assistente de Suporte', es: 'Asistente de Soporte', en: 'Support Assistant' },
       title: { pt: 'Assistente de Suporte de TI', es: 'Asistente de Soporte TI', en: 'IT Support Assistant' },
       company: 'Telefônica Infraestrutura e Segurança',
       items: [
@@ -185,8 +176,8 @@
           es: 'Atención a usuarios por tickets y teléfono, con comunicación clara y resolutiva.',
           en: 'User support through tickets and phone, with clear, solution-focused communication.' },
         { tags: ['azure', 'ad', 'oracle', 'access'],
-          pt: 'Consultas e liberações em Azure, Active Directory e Oracle.',
-          es: 'Consultas y habilitaciones en Azure, Active Directory y Oracle.',
+          pt: 'Consultas e liberações de acesso em Azure, Active Directory e Oracle.',
+          es: 'Consultas y habilitación de accesos en Azure, Active Directory y Oracle.',
           en: 'Lookups and access grants in Azure, Active Directory and Oracle.' }
       ] }
   ];
@@ -195,15 +186,15 @@
     { yr: { pt: '2025 – atual', es: '2025 – actual', en: '2025 – present' },
       t: { pt: 'Bacharelado em Ciência da Computação', es: 'Grado en Ciencias de la Computación', en: 'BSc in Computer Science' },
       s: { pt: 'Centro Universitário de Belo Horizonte (UniBH), em andamento', es: 'Centro Universitário de Belo Horizonte (UniBH), en curso', en: 'Centro Universitário de Belo Horizonte (UniBH), in progress' } },
-    { yr: { pt: '2021 – 2022', es: '2021 – 2022', en: '2021 – 2022' },
+    { yr: '2021 – 2022',
       t: { pt: 'Técnico em Informática, Desenvolvimento Mobile', es: 'Técnico en Informática, Desarrollo Móvil', en: 'IT Technician, Mobile Development' },
-      s: { pt: 'Colégio Cotemig, integrado ao Ensino Médio', es: 'Colégio Cotemig, integrado con la secundaria', en: 'Colégio Cotemig, alongside high school' } },
-    { yr: { pt: '2022', es: '2022', en: '2022' },
+      s: { pt: 'Colégio Cotemig, integrado ao Ensino Médio', es: 'Colégio Cotemig, junto con la secundaria', en: 'Colégio Cotemig, alongside high school' } },
+    { yr: '2022',
       t: { pt: 'Voluntário no Code Club', es: 'Voluntario en Code Club', en: 'Code Club volunteer' },
       s: { pt: 'Colégio Cotemig, apoio no ensino de programação', es: 'Colégio Cotemig, apoyo en la enseñanza de programación', en: 'Colégio Cotemig, helping teach programming' } },
-    { yr: { pt: '2020', es: '2020', en: '2020' },
+    { yr: '2020',
       t: { pt: 'Certificado de Espanhol', es: 'Certificado de Español', en: 'Spanish certificate' },
-      s: { pt: 'Colégio Espanhol Santa Maria Minas', es: 'Colégio Espanhol Santa Maria Minas', en: 'Colégio Espanhol Santa Maria Minas' } }
+      s: 'Colégio Espanhol Santa Maria Minas' }
   ];
 
   const LANGS = [
@@ -212,148 +203,235 @@
     { n: { pt: 'Inglês', es: 'Inglés', en: 'English' }, l: { pt: 'Intermediário', es: 'Intermedio', en: 'Intermediate' }, v: 3 }
   ];
 
-  /* ------------------------------------------------------------------ */
-  /* Rendering                                                           */
-  /* ------------------------------------------------------------------ */
-  let lang = 'pt';
-  let activeSkill = null;
+  /* =================================================================== */
+  /* State + helpers                                                      */
+  /* =================================================================== */
+  let lang = 'pt', activeJob = 0, activeSkill = null;
   const tx = (v) => (typeof v === 'string' ? v : v[lang]);
   const t = (k) => UI[lang][k];
-  const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const used = new Set(JOBS.flatMap((j) => j.items.flatMap((i) => i.tags)));
 
-  const usage = {};
-  JOBS.forEach((j) => j.items.forEach((it) => it.tags.forEach((tag) => { usage[tag] = (usage[tag] || 0) + 1; })));
+  function barcode(sel, text) {
+    const svg = $(sel);
+    if (!svg || typeof JsBarcode !== 'function') return;
+    JsBarcode(svg, text, { format: 'CODE128', displayValue: false, margin: 0, height: 48, width: 2, background: 'transparent', lineColor: '#0A0A0A' });
+    const w = svg.getAttribute('width'), h = svg.getAttribute('height');
+    svg.setAttribute('viewBox', `0 0 ${parseFloat(w)} ${parseFloat(h)}`);
+    svg.setAttribute('preserveAspectRatio', 'none');
+    svg.removeAttribute('width'); svg.removeAttribute('height'); svg.removeAttribute('style');
+  }
+  const ascii = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase().replace(/[^A-Z0-9 .-]/g, '').trim().replace(/\s+/g, '-');
 
-  function renderTimeline() {
-    $('#timeline').innerHTML = JOBS.map((j) => `
-      <li class="entry${j.current ? ' current' : ''}">
-        <div class="entry-when"><b>${j.from} – ${j.to || t('present')}</b>${j.current ? t('current') : ''}</div>
-        <div>
-          <h3>${esc(tx(j.title))}</h3>
-          <p class="company">${esc(j.company)}, ${t('allocated')}</p>
-          <ul>${j.items.map((it) => `<li data-tags="${it.tags.join(' ')}">${esc(it[lang])}</li>`).join('')}</ul>
-        </div>
-      </li>`).join('');
+  /* =================================================================== */
+  /* Patch panel                                                          */
+  /* =================================================================== */
+  function renderPorts() {
+    const wrap = $('#ports');
+    wrap.setAttribute('aria-label', t('ports'));
+    wrap.innerHTML = JOBS.map((j, i) => `
+      <button class="port" role="tab" id="port-${i}" aria-controls="jobDetail" aria-selected="${i === activeJob}" tabindex="${i === activeJob ? 0 : -1}" data-i="${i}" style="--c:${j.color}">
+        <span class="port-tag">${j.tag} ${j.from.slice(3)}${j.to ? '–' + j.to.slice(5) : '+'}</span>
+        <span class="jack-row"><span class="jack"><span class="plug"></span></span><span class="leds"><i></i><i></i></span></span>
+        <span class="port-title">${esc(tx(j.short))}</span>
+      </button>`).join('');
+    markPorts();
   }
 
+  function renderJob(animate) {
+    const j = JOBS[activeJob];
+    const d = $('#jobDetail');
+    d.style.setProperty('--c', j.color);
+    d.setAttribute('aria-labelledby', 'port-' + activeJob);
+    d.innerHTML = `<div class="${animate && !reduceMotion ? 'swap' : ''}">
+      <div class="job-meta"><h3>${esc(tx(j.title))}</h3><span class="job-dates">${j.from} – ${j.to || t('present')}</span></div>
+      <p class="job-company"><b>${esc(j.company)}</b>, ${t('allocated')}</p>
+      <ul>${j.items.map((it) => `<li data-tags="${it.tags.join(' ')}">${esc(it[lang])}</li>`).join('')}</ul></div>`;
+    markItems();
+    drawCable(animate);
+  }
+
+  function selectJob(i, focus) {
+    if (i === activeJob && !focus) return;
+    activeJob = i;
+    $$('.port').forEach((p, k) => { p.setAttribute('aria-selected', String(k === i)); p.tabIndex = k === i ? 0 : -1; });
+    if (focus) $('#port-' + i).focus();
+    renderJob(true);
+  }
+
+  function drawCable(animate) {
+    const wrap = $('#panelWrap'), port = $('#port-' + activeJob), detail = $('#jobDetail'), path = $('#cable');
+    if (!port) return;
+    const W = wrap.getBoundingClientRect(), jack = $('.jack', port).getBoundingClientRect(), D = detail.getBoundingClientRect();
+    const P = $('#ports').getBoundingClientRect();
+    const x1 = jack.left + jack.width / 2 - W.left, y0 = jack.bottom - W.top - 4, y1 = P.bottom - W.top + 14;
+    const x2 = Math.min(D.left - W.left + 64, D.right - W.left - 40), y2 = D.top - W.top + 2;
+    const sag = Math.max(30, (y2 - y1) * .7);
+    path.setAttribute('d', `M ${x1} ${y0} L ${x1} ${y1} C ${x1} ${y1 + sag}, ${x2} ${y2 - sag}, ${x2} ${y2}`);
+    path.style.stroke = JOBS[activeJob].color;
+    const len = path.getTotalLength();
+    path.style.strokeDasharray = len;
+    if (animate && !reduceMotion) {
+      path.style.transition = 'none'; path.style.strokeDashoffset = len;
+      path.getBoundingClientRect();
+      path.style.transition = 'stroke-dashoffset .6s cubic-bezier(.4,0,.2,1) .12s';
+    } else path.style.transition = 'none';
+    path.style.strokeDashoffset = 0;
+  }
+
+  $('#ports').addEventListener('click', (e) => { const p = e.target.closest('.port'); if (p) selectJob(+p.dataset.i); });
+  $('#ports').addEventListener('keydown', (e) => {
+    const map = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
+    if (e.key in map) { e.preventDefault(); selectJob((activeJob + map[e.key] + JOBS.length) % JOBS.length, true); }
+    if (e.key === 'Home') { e.preventDefault(); selectJob(0, true); }
+    if (e.key === 'End') { e.preventDefault(); selectJob(JOBS.length - 1, true); }
+  });
+  let rz; addEventListener('resize', () => { cancelAnimationFrame(rz); rz = requestAnimationFrame(() => drawCable(false)); });
+
+  /* =================================================================== */
+  /* Skills filter                                                        */
+  /* =================================================================== */
   function renderSkills() {
     $('#skillGroups').innerHTML = SKILLS.map((g) => `
-      <div class="skill-group">
-        <h3>${esc(tx(g.group))}</h3>
-        <div class="chips">${g.items.map(([id, label]) => usage[id]
-          ? `<button type="button" class="chip" data-skill="${id}" data-used aria-pressed="${activeSkill === id}">${esc(tx(label))}</button>`
-          : `<span class="chip">${esc(tx(label))}</span>`).join('')}</div>
-      </div>`).join('');
+      <div class="skill-group"><h3>${esc(tx(g.group))}</h3><div class="stickers">${g.items.map(([id, label]) => used.has(id)
+        ? `<button type="button" class="sticker" data-skill="${id}" aria-pressed="${activeSkill === id}">${esc(tx(label))}</button>`
+        : `<span class="sticker">${esc(tx(label))}</span>`).join('')}</div></div>`).join('');
   }
+  function markPorts() { $$('.port').forEach((p, i) => p.classList.toggle('match', !!activeSkill && JOBS[i].items.some((it) => it.tags.includes(activeSkill)))); }
+  function markItems() {
+    const d = $('#jobDetail');
+    d.classList.toggle('filtering', !!activeSkill);
+    $$('li[data-tags]', d).forEach((li) => li.classList.toggle('hit', !!activeSkill && li.dataset.tags.split(' ').includes(activeSkill)));
+  }
+  function applyFilter() {
+    $$('.sticker[data-skill]').forEach((s) => s.setAttribute('aria-pressed', String(s.dataset.skill === activeSkill)));
+    markPorts(); markItems();
+    const note = $('#filterNote');
+    if (!activeSkill) { note.textContent = ''; return; }
+    const n = JOBS.filter((j) => j.items.some((it) => it.tags.includes(activeSkill))).length;
+    note.innerHTML = `${esc(t('skills.hits')(n, JOBS.length))}<button type="button" id="clearFilter">${esc(t('skills.clear'))}</button>`;
+  }
+  document.addEventListener('click', (e) => {
+    const s = e.target.closest('.sticker[data-skill]');
+    if (s) {
+      activeSkill = activeSkill === s.dataset.skill ? null : s.dataset.skill;
+      // if the open role doesn't use the skill, plug into the most recent one that does
+      if (activeSkill && !JOBS[activeJob].items.some((it) => it.tags.includes(activeSkill))) {
+        const k = JOBS.findIndex((j) => j.items.some((it) => it.tags.includes(activeSkill)));
+        if (k >= 0) { activeJob = k; $$('.port').forEach((p, i) => { p.setAttribute('aria-selected', String(i === k)); p.tabIndex = i === k ? 0 : -1; }); renderJob(true); }
+      }
+      applyFilter();
+    }
+    if (e.target.id === 'clearFilter') { activeSkill = null; applyFilter(); }
+  });
 
+  /* =================================================================== */
+  /* Education, languages                                                 */
+  /* =================================================================== */
   function renderEdu() {
-    $('#eduList').innerHTML = EDU.map((e) => `<li><b>${esc(tx(e.t))}</b><span class="yr">${tx(e.yr)}</span><span>${esc(tx(e.s))}</span></li>`).join('');
-    $('#langList').innerHTML = LANGS.map((l) => `
-      <li><div class="top"><b>${tx(l.n)}</b><span>${esc(tx(l.l))}</span></div>
+    $('#eduList').innerHTML = EDU.map((e) => `<li><b>${esc(tx(e.t))}</b><span class="yr">${esc(tx(e.yr))}</span><span class="where">${esc(tx(e.s))}</span></li>`).join('');
+    $('#langList').innerHTML = LANGS.map((l) => `<li><div class="top"><b>${tx(l.n)}</b><span>${esc(tx(l.l))}</span></div>
       <div class="meter" role="img" aria-label="${tx(l.n)}: ${l.v}/5">${[1, 2, 3, 4, 5].map((i) => `<i class="${i <= l.v ? 'on' : ''}"></i>`).join('')}</div></li>`).join('');
   }
 
-  function applyFilter() {
-    const tl = $('#timeline');
-    const note = $('#filterNote');
-    $$('.chip[data-skill]').forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.skill === activeSkill)));
-    if (!activeSkill) { tl.classList.remove('filtering'); $$('li[data-tags]', tl).forEach((li) => li.classList.remove('hit')); note.textContent = ''; return; }
-    tl.classList.add('filtering');
-    let n = 0;
-    $$('li[data-tags]', tl).forEach((li) => { const hit = li.dataset.tags.split(' ').includes(activeSkill); li.classList.toggle('hit', hit); if (hit) n++; });
-    note.innerHTML = `${t('skills.hits')(n)} <a href="#historico">${t('nav.history')}</a> <a href="#" id="clearFilter">${t('skills.clear')}</a>`;
+  /* =================================================================== */
+  /* Contact label maker                                                  */
+  /* =================================================================== */
+  const form = $('#contactForm');
+  function updateContactLabel() {
+    const name = form.name.value.trim(), company = form.company.value.trim(), msg = form.message.value.trim();
+    $('#clName').textContent = name; $('#clCompany').textContent = company; $('#clMsg').textContent = msg;
+    $('#clName').dataset.ph = t('cl.phName'); $('#clCompany').dataset.ph = t('cl.phCompany'); $('#clMsg').dataset.ph = t('cl.phMsg');
+    $('#clSubject').textContent = form.subject.options[form.subject.selectedIndex].text;
+    barcode('#contactBarcode', `GG-${(ascii(name) || 'CONTATO').slice(0, 24)}-${new Date().getFullYear()}`);
   }
+  const d = new Date();
+  $('#clDate').textContent = `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
+  form.addEventListener('input', (e) => { if (e.target.getAttribute('aria-invalid') === 'true' && e.target.value.trim()) e.target.setAttribute('aria-invalid', 'false'); updateContactLabel(); });
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = form.name.value.trim(), msg = form.message.value.trim(), company = form.company.value.trim();
+    form.name.setAttribute('aria-invalid', String(!name)); form.message.setAttribute('aria-invalid', String(!msg));
+    if (!name || !msg) { $('#formError').textContent = t('form.err'); (name ? form.message : form.name).focus(); return; }
+    $('#formError').textContent = '';
+    const subject = form.subject.options[form.subject.selectedIndex].text + (company ? ' | ' + company : '');
+    const body = `${msg}\n\n${name}${company ? '\n' + company : ''}`;
+    location.href = `mailto:contatogabrielgandra@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    toast(t('form.opened'));
+  });
 
+  /* =================================================================== */
+  /* Language                                                             */
+  /* =================================================================== */
   function setLang(next) {
     lang = next;
     root.lang = { pt: 'pt-BR', es: 'es', en: 'en' }[lang];
     $$('[data-i18n]').forEach((el) => { const v = UI[lang][el.dataset.i18n]; if (typeof v === 'string') el.textContent = v; });
+    $$('[data-i18n-label]').forEach((el) => el.setAttribute('aria-label', UI[lang][el.dataset.i18nLabel]));
     $$('.lang button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
-    const st = $('#ticketStatus');
-    $('.status-text', st).textContent = t('t.s.' + st.dataset.state);
-    renderTimeline(); renderSkills(); renderEdu(); applyFilter();
+    renderPorts(); renderJob(false); renderSkills(); renderEdu(); applyFilter(); updateContactLabel();
     try { localStorage.setItem('lang', lang); } catch (e) {}
   }
-
-  /* ------------------------------------------------------------------ */
-  /* Ticket sequence (the one orchestrated moment on the page)           */
-  /* ------------------------------------------------------------------ */
-  const ticket = $('#ticket');
-  const status = $('#ticketStatus');
-  const bar = $('#ticketBar');
-  let timers = [];
-  const later = (fn, ms) => timers.push(setTimeout(fn, ms));
-
-  function setState(s) {
-    ticket.dataset.state = s; status.dataset.state = s;
-    $('.status-text', status).textContent = t('t.s.' + s);
-  }
-  function runTicket() {
-    timers.forEach(clearTimeout); timers = [];
-    if (reduceMotion) { ticket.classList.add('filled'); bar.style.width = '100%'; setState('resolved'); return; }
-    ticket.classList.remove('filled'); bar.style.transition = 'none'; bar.style.width = '0'; setState('new');
-    later(() => ticket.classList.add('filled'), 500);
-    later(() => { setState('progress'); bar.style.transition = 'width 1.8s cubic-bezier(.4,0,.2,1)'; bar.style.width = '100%'; }, 1400);
-    later(() => setState('resolved'), 3300);
-  }
-
-  /* ------------------------------------------------------------------ */
-  /* Interactions                                                        */
-  /* ------------------------------------------------------------------ */
-  const toast = $('#toast');
-  let toastTimer;
-  function showToast(msg) { toast.textContent = msg; toast.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove('show'), 2400); }
-
-  document.addEventListener('click', (e) => {
-    const chip = e.target.closest('.chip[data-skill]');
-    if (chip) { activeSkill = activeSkill === chip.dataset.skill ? null : chip.dataset.skill; applyFilter(); return; }
-    if (e.target.id === 'clearFilter') { e.preventDefault(); activeSkill = null; applyFilter(); }
-  });
-
   $$('.lang button').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.lang)));
-  $('#replay').addEventListener('click', runTicket);
 
+  /* =================================================================== */
+  /* Hero: print sequence + draggable label                               */
+  /* =================================================================== */
+  const feed = $('#feed'), label = $('#assetLabel'), led = $('#printerLed');
+  function print() {
+    if (reduceMotion) { feed.classList.add('done'); return; }
+    feed.classList.remove('done', 'printing'); label.style.transform = '';
+    void feed.offsetWidth;
+    led.classList.add('busy'); feed.classList.add('printing');
+  }
+  label.addEventListener('animationend', () => { feed.classList.remove('printing'); feed.classList.add('done'); led.classList.remove('busy'); });
+  $('#reprint').addEventListener('click', print);
+
+  let drag = null;
+  label.addEventListener('pointerdown', (e) => {
+    if (!feed.classList.contains('done')) return;
+    drag = { x: e.clientX, y: e.clientY }; label.setPointerCapture(e.pointerId); label.classList.add('dragging');
+  });
+  label.addEventListener('pointermove', (e) => {
+    if (!drag) return;
+    const dx = Math.max(-220, Math.min(220, e.clientX - drag.x)), dy = Math.max(-140, Math.min(260, e.clientY - drag.y));
+    label.style.transform = `translate(${dx}px, ${dy}px) rotate(${dx * .05}deg)`;
+  });
+  const release = () => { if (!drag) return; drag = null; label.classList.remove('dragging'); label.style.transform = ''; };
+  label.addEventListener('pointerup', release); label.addEventListener('pointercancel', release);
+
+  /* =================================================================== */
+  /* Chrome: theme, top bar, nav, copy, toast                             */
+  /* =================================================================== */
   $('#themeBtn').addEventListener('click', () => {
     const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
     root.dataset.theme = dark ? 'light' : 'dark';
     try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
   });
-
-  $('#copyEmail').addEventListener('click', async (e) => {
-    try { await navigator.clipboard.writeText(e.currentTarget.dataset.email); showToast(t('copied')); }
-    catch (err) { showToast(t('copyFail')); }
-  });
-
-  $('#contactForm').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const f = e.currentTarget;
-    const name = f.name.value.trim(), msg = f.message.value.trim(), company = f.company.value.trim();
-    f.name.setAttribute('aria-invalid', String(!name));
-    f.message.setAttribute('aria-invalid', String(!msg));
-    if (!name || !msg) { $('#formError').textContent = t('form.err'); (name ? f.message : f.name).focus(); return; }
-    $('#formError').textContent = '';
-    const subject = `${f.subject.options[f.subject.selectedIndex].text}${company ? ' | ' + company : ''}`;
-    const body = `${msg}\n\n${name}${company ? '\n' + company : ''}`;
-    window.location.href = `mailto:contatogabrielgandra@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    showToast(t('form.opened'));
-  });
-
-  // top bar border + active nav link
-  const topbar = $('.topbar');
-  const onScroll = () => topbar.classList.toggle('scrolled', window.scrollY > 8);
-  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  const bar = $('#topbar'), hero = $('.hero');
+  const onScroll = () => {
+    bar.classList.toggle('scrolled', scrollY > 8);
+    bar.classList.toggle('solid', scrollY > hero.offsetHeight - bar.offsetHeight);
+  };
+  addEventListener('scroll', onScroll, { passive: true });
   const links = $$('.nav a');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((en) => { if (en.isIntersecting) links.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id)); });
-  }, { rootMargin: '-45% 0px -50% 0px' });
+  const io = new IntersectionObserver((es) => es.forEach((en) => { if (en.isIntersecting) links.forEach((a) => a.classList.toggle('active', a.hash === '#' + en.target.id)); }), { rootMargin: '-45% 0px -50% 0px' });
   ['historico', 'competencias', 'formacao', 'contato'].forEach((id) => io.observe(document.getElementById(id)));
 
-  /* ------------------------------------------------------------------ */
-  /* Start                                                               */
-  /* ------------------------------------------------------------------ */
-  let saved = null;
-  try { saved = localStorage.getItem('lang'); } catch (e) {}
-  const browser = (navigator.language || 'pt').slice(0, 2);
-  setLang(UI[saved] ? saved : (UI[browser] ? browser : 'pt'));
-  requestAnimationFrame(() => requestAnimationFrame(() => { root.classList.add('ready'); runTicket(); }));
+  const toastEl = $('#toast'); let tt;
+  function toast(m) { toastEl.textContent = m; toastEl.classList.add('show'); clearTimeout(tt); tt = setTimeout(() => toastEl.classList.remove('show'), 2400); }
+  $('#copyEmail').addEventListener('click', async (e) => {
+    try { await navigator.clipboard.writeText(e.currentTarget.dataset.email); toast(t('copied')); } catch (err) { toast(t('copyFail')); }
+  });
+
+  /* =================================================================== */
+  /* Start                                                                */
+  /* =================================================================== */
+  barcode('#assetBarcode', 'GABRIEL-GANDRA');
+  let saved = null; try { saved = localStorage.getItem('lang'); } catch (e) {}
+  const nav = (navigator.language || 'pt').slice(0, 2);
+  setLang(UI[saved] ? saved : UI[nav] ? nav : 'pt');
+  onScroll();
+  const start = () => requestAnimationFrame(() => { root.classList.add('ready'); setTimeout(print, reduceMotion ? 0 : 450); drawCable(false); });
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(start);
 })();
