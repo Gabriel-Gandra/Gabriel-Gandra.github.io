@@ -208,7 +208,10 @@
           d: { pt: 'Sistema completo para barbearias: agendamento, programa de fidelidade, cupons, mapa interativo e landing page própria.', es: 'Sistema completo para barberías: reservas, programa de fidelidad, cupones, mapa interactivo y landing page propia.', en: 'All-in-one system for barbershops: booking, loyalty programme, coupons, interactive map and a landing page of their own.' } },
         { name: 'MesaRápida', url: 'https://www.mesarapida.com.br/', code: 'MESARAPIDA.COM.BR',
           tag: { pt: 'Reservas', es: 'Reservas', en: 'Bookings' },
-          d: { pt: 'Reserva de mesas em segundos para restaurantes, com organização das mesas e menos faltas (no-show).', es: 'Reserva de mesas en segundos para restaurantes, con organización de mesas y menos ausencias (no-show).', en: 'Table booking in seconds for restaurants, with table management and fewer no-shows.' } }
+          d: { pt: 'Reserva de mesas em segundos para restaurantes, com organização das mesas e menos faltas (no-show).', es: 'Reserva de mesas en segundos para restaurantes, con organización de mesas y menos ausencias (no-show).', en: 'Table booking in seconds for restaurants, with table management and fewer no-shows.' } },
+        { name: 'Diário de Noivos', url: 'https://diariodenoivos.com.br/', code: 'DIARIODENOIVOS.COM.BR',
+          tag: { pt: 'Casamentos', es: 'Bodas', en: 'Weddings' },
+          d: { pt: 'Organização do casamento a dois: convidados, orçamento, fornecedores e um site para os convidados com lista de presentes e confirmação de presença.', es: 'Organización de la boda en pareja: invitados, presupuesto, proveedores y un sitio para los invitados con lista de regalos y confirmación de asistencia.', en: 'Plan the wedding as a couple: guests, budget, vendors and a guest website with a gift registry and RSVPs.' } }
       ] },
     { title: { pt: 'Jogos no Roblox', es: 'Juegos en Roblox', en: 'Roblox games' },
       note: { pt: 'Por diversão; comecei há pouco tempo.', es: 'Por diversión; empecé hace poco.', en: 'Just for fun; I started recently.' },
@@ -573,6 +576,66 @@
   /* Start                                                                */
   /* =================================================================== */
   barcode('#assetBarcode', 'GABRIEL-GANDRA');
+  /* =================================================================== */
+  /* Hero: interactive dot field (dots bulge toward the viewer under the  */
+  /* pointer and settle back on springs)                                  */
+  /* =================================================================== */
+  (function dotField() {
+    const cv = $('#dots');
+    if (!cv || !cv.getContext) return;
+    const ctx = cv.getContext('2d');
+    hero.classList.add('has-dots');
+    const GAP = 22, R = 140;
+    let W = 0, H = 0, pts = [], color = '#000', raf = 0, frame = 0, visible = true;
+    const m = { x: -9999, y: -9999, tx: -9999, ty: -9999, on: 0, ton: 0 };
+
+    function build() {
+      const r = hero.getBoundingClientRect(), dpr = Math.min(2, devicePixelRatio || 1);
+      W = r.width; H = r.height;
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      pts = [];
+      for (let y = GAP / 2; y < H; y += GAP) for (let x = GAP / 2; x < W; x += GAP) pts.push({ x, y, z: 0, v: 0 });
+    }
+    const readColor = () => { color = getComputedStyle(hero).color; };
+
+    function tick(t) {
+      raf = 0; frame++;
+      if (frame % 30 === 1) readColor();
+      m.x += (m.tx - m.x) * 0.14; m.y += (m.ty - m.y) * 0.14; m.on += (m.ton - m.on) * 0.07;
+      ctx.clearRect(0, 0, W, H); ctx.fillStyle = color;
+      const amb = reduceMotion ? 0 : 1;
+      let energy = 0;
+      for (const p of pts) {
+        const dx = p.x - m.x, dy = p.y - m.y, d2 = dx * dx + dy * dy;
+        const target = m.on * Math.exp(-d2 / (2 * R * R)) + amb * 0.1 * Math.sin(t * 0.0011 + p.x * 0.013 + p.y * 0.009);
+        p.v += (target - p.z) * 0.09; p.v *= 0.82; p.z += p.v;
+        energy += Math.abs(p.v);
+        const d = Math.sqrt(d2) || 1, k = Math.min(1, d / 40) * p.z * 16;
+        const px = p.x + (dx / d) * k, py = p.y + (dy / d) * k - p.z * 7;
+        const mask = 0.3 + 0.7 * Math.min(1, p.x / (W * 0.55));
+        ctx.globalAlpha = Math.max(0, Math.min(1, (0.16 + p.z * 0.75) * (mask + p.z)));
+        ctx.beginPath(); ctx.arc(px, py, 1.05 + Math.max(0, p.z) * 2.6, 0, 6.2832); ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      if (visible && (amb || energy > 0.05 || m.on > 0.01 || m.ton > 0)) raf = requestAnimationFrame(tick);
+    }
+    const kick = () => { if (!raf && visible) raf = requestAnimationFrame(tick); };
+
+    hero.addEventListener('pointermove', (e) => {
+      const r = hero.getBoundingClientRect();
+      m.tx = e.clientX - r.left; m.ty = e.clientY - r.top;
+      if (m.x < -999) { m.x = m.tx; m.y = m.ty; }
+      m.ton = 1; kick();
+    });
+    hero.addEventListener('pointerleave', () => { m.ton = 0; kick(); });
+    new IntersectionObserver(([en]) => { visible = en.isIntersecting; if (visible) kick(); }).observe(hero);
+    new ResizeObserver(() => { build(); kick(); }).observe(hero);
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { readColor(); kick(); });
+    $('#themeBtn').addEventListener('click', () => setTimeout(() => { readColor(); kick(); }, 60));
+    build(); readColor(); kick();
+  })();
+
   let saved = null; try { saved = localStorage.getItem('lang'); } catch (e) {}
   const nav = (navigator.language || 'pt').slice(0, 2);
   setLang(UI[saved] ? saved : UI[nav] ? nav : 'pt');
