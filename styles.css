@@ -471,3 +471,8 @@ span.sticker { background: transparent; color: var(--muted); box-shadow: inset 0
   .kicker::before, .printing-now .printer-top { animation: none; }
   .feed.done { transform: none !important; }
 }
+
+/* GitHub link (top bar icon + footer) */
+.theme.gh svg { fill: currentColor; stroke: none; width: 18px; height: 18px; }
+.theme.gh:hover { transform: rotate(-8deg) scale(1.06); }
+.footer-links { display: flex; gap: 22px; }
